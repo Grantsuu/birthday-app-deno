@@ -26,12 +26,14 @@ async function handler(req: Request): Promise<Response> {
       path.startsWith("/api/birthday/") && req.method === "PATCH"
     ) {
       // Edit birthday for user
-      return await editBirthday(path.split("/")[3], {});
+      const body = await req.json();
+      return await editBirthday(path.split("/")[3], body, client);
     } else if (
       path.startsWith("/api/birthday/") && req.method === "DELETE"
     ) {
       // Delete birthday for user
-      return await deleteBirthday(path.split("/")[3], "");
+      const body = await req.json();
+      return await deleteBirthday(path.split("/")[3], body.id, client);
     }
   } catch (err) {
     console.error(err);

@@ -1,5 +1,6 @@
 import type { Client } from "https://deno.land/x/postgres/mod.ts";
 import type { Birthday } from "./interfaces.ts";
+import { buildPatchSqlQuery } from "./helpers.ts";
 
 export async function getBirthdays(
   id: string,
@@ -66,17 +67,27 @@ export async function addBirthday(
 export async function editBirthday(
   id: string,
   birthday: Birthday,
+  client: Client,
 ): Promise<Response> {
   try {
-    console.log(id, birthday);
-    return new Response(
-      JSON.stringify({
-        message: `Edit Birthday for ${id}, ${JSON.stringify(birthday)}`,
-      }),
-      {
-        headers: { "Content-Type": "application/json" },
-      },
+    await client.connect();
+
+    const query = buildPatchSqlQuery(
+      "birthdays",
+      birthday,
+      { userId: id, id: birthday.id },
+      [],
     );
+
+    const result = await client.queryObject(query);
+
+    // Encode the result as JSON
+    const body = JSON.stringify(result.rows, null, 2);
+
+    // Return the result as JSON
+    return new Response(body, {
+      headers: { "content-type": "application/json" },
+    });
   } catch (error) {
     return new Response(
       JSON.stringify({ error: (error as Error).message }),
@@ -91,15 +102,25 @@ export async function editBirthday(
 export async function deleteBirthday(
   id: string,
   birthdayId: string,
+  client: Client,
 ): Promise<Response> {
   try {
-    console.log(id, birthdayId);
-    return new Response(
-      JSON.stringify({ message: `Delete Birthday for ${id}` }),
-      {
-        headers: { "Content-Type": "application/json" },
-      },
-    );
+    await client.connect();
+
+    const result = await client.queryObject`
+        DELETE
+        FROM birthdays
+        WHERE "userId" = ${id}
+          AND id = ${birthdayId} RETURNING id;
+    `;
+
+    // Encode the result as JSON
+    const body = JSON.stringify(result.rows, null, 2);
+
+    // Return the result as JSON
+    return new Response(body, {
+      headers: { "content-type": "application/json" },
+    });
   } catch (error) {
     return new Response(
       JSON.stringify({ error: (error as Error).message }),
