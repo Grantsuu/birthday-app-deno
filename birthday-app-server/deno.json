@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "dev": "deno --cert ./prod-ca-2021.crt -ERNS --env --watch server.ts"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1"
