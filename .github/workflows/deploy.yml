@@ -32,6 +32,6 @@ jobs:
         with:
           project: "low-pigeon-78"
           entrypoint: "https://deno.land/std@0.217.0/http/file_server.ts"
-          root: ""
+          root: "vite-project"
           
           
