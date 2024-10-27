@@ -25,7 +25,9 @@ jobs:
 
       - name: Build step
         working-directory: ./vite-project
-        run: "deno task build"
+        run: |
+          cd ./vite-project
+          deno task build
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
