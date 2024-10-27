@@ -31,7 +31,7 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "grantsuu-birthday-ap-87"
-          entrypoint: "main.ts"
-          root: "."
+          entrypoint: "server.ts"
+          root: "../birthday-app-server"
           
           
