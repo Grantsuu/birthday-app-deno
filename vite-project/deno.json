@@ -6,7 +6,11 @@
     "serve": "deno run --allow-net --allow-read jsr:@std/http@1/file-server dist/"
   },
   "compilerOptions": {
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "jsxImportSourceTypes": "@types/react"
@@ -19,5 +23,13 @@
     "react": "npm:react@^18.3.1",
     "react-dom": "npm:react-dom@^18.3.1",
     "vite": "npm:vite@^5.4.9"
+  },
+  "deploy": {
+    "project": "54e3b074-9d4c-4892-bcda-26d74dc2d6a7",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "jsr:@std/http@1.0.0-rc.5/file-server"
   }
 }
