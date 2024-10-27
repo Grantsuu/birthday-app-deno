@@ -24,7 +24,7 @@ jobs:
           deno-version: v1.x
 
       - name: Build step
-        run: "'ls' 'cd ./vite-project' 'deno task build'"
+        run: "ls"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
