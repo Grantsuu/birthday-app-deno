@@ -1,3 +1,4 @@
+import { Hono } from 'hono'
 import {
   addBirthday,
   deleteBirthday,
@@ -8,11 +9,17 @@ import { createDatabaseClient } from "./database.ts";
 
 const PORT = Deno.env.get("PORT");
 
+const app = new Hono();
+const client = createDatabaseClient();
+
+app.get('/api/birthday/:id', async (c)=>{
+  const id = c.req.param('id');
+  return await getBirthdays(id, client);
+})
+
 async function handler(req: Request): Promise<Response> {
   const url = new URL(req.url);
   const path = url.pathname;
-
-  const client = createDatabaseClient();
 
   try {
     if (path.startsWith("/api/birthday/") && req.method === "GET") {
@@ -54,4 +61,5 @@ async function handler(req: Request): Promise<Response> {
 }
 
 console.log(`API running on port: ${PORT}`);
-Deno.serve({ port: PORT ? parseInt(PORT) : 8080 }, handler);
+// Deno.serve({ port: PORT ? parseInt(PORT) : 8080 }, handler);
+Deno.serve({ port: PORT ? parseInt(PORT) : 8080 }, app.fetch)
