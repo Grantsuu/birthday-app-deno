@@ -8,7 +8,7 @@ function App() {
   const [count, setCount] = useState(0);
 
 
-  const HOST = import.meta.env.VITE_APIT;
+  const HOST = import.meta.env.VITE_API;
 
   console.log(HOST);
 
