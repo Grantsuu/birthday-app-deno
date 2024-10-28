@@ -1,6 +1,6 @@
 import "./App.css";
 // @deno-types="@types/react"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // @ts-expect-error Unable to infer type at the moment
 import reactLogo from "./assets/react.svg";
 
@@ -18,7 +18,9 @@ function App() {
     console.log(data);
   };
 
-  fetchBirthdays();
+  useEffect(()=>{
+    await fetchBirthdays();
+  }, [])
 
   return (
     <>
