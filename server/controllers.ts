@@ -80,7 +80,7 @@ export async function editBirthday(
       "birthdays",
       birthday,
       { id: id },
-      ['id', 'name', 'date'],
+      ["id", "name", "date"],
     );
 
     const result = await client.queryObject(query);
