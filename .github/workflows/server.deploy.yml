@@ -31,5 +31,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "bold-pheasant-84"
-          entrypoint: "server.ts"
+          entrypoint: "https://jsr.io/@std/http/1.0.9/file_server.ts"
           root: "server"
