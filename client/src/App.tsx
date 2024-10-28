@@ -8,7 +8,7 @@ function App() {
   const [count, setCount] = useState(0);
 
   // @ts-expect-error Deno import meta doesn't have env
-  const HOST = await import.meta.env.VITE_API_HOST;
+  const HOST = import.meta.env.VITE_API_HOST;
 
   console.log(HOST);
 
