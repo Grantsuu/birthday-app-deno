@@ -10,6 +10,8 @@ function App() {
   // @ts-expect-error Deno import meta doesn't have env
   const HOST = import.meta.env.VITE_API_HOST;
 
+  console.log(HOST);
+
   const fetchBirthdays = async () => {
     const response = await fetch(HOST + "api/birthday/1");
     const data = await response.json();
