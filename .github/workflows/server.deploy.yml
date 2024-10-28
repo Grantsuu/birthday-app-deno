@@ -1,13 +1,13 @@
-name: Deploy
+name: Server Deploy
 on:
   push:
     branches: main
     paths:
-      - 'server/**'
+      - "server/**"
   pull_request:
     branches: main
     paths:
-      - 'server/**'
+      - "server/**"
 
 jobs:
   deploy:

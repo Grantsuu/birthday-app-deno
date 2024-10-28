@@ -1,13 +1,13 @@
-name: Deploy
+name: Client Deploy
 on:
   push:
     branches: main
     paths:
-      - 'client/**'
+      - "client/**"
   pull_request:
     branches: main
     paths:
-      - 'client/**'
+      - "client/**"
 
 jobs:
   deploy:
