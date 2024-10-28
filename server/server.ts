@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { cors } from 'hono/cors';
+import { cors } from "hono/cors";
 import {
   addBirthday,
   deleteBirthday,
@@ -13,9 +13,12 @@ const PORT = Deno.env.get("PORT");
 const app = new Hono();
 const client = createDatabaseClient();
 
-app.use('api/*',cors({
-  origin:['http://localhost:3000/*', 'https://low-pigeon-78.deno.dev/*']
-}))
+app.use(
+  "api/*",
+  cors({
+    origin: ["http://localhost:3000", "https://low-pigeon-78.deno.dev"],
+  }),
+);
 
 app.get("/api/birthday/:id", async (c) => {
   const id = c.req.param("id");
