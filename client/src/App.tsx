@@ -10,10 +10,10 @@ function App() {
   const HOST = import.meta.env.VITE_API_HOST;
 
   const fetchBirthdays = async () => {
-    const response = await fetch(HOST+'api/birthday/1');
+    const response = await fetch(HOST + "api/birthday/1");
     const data = await response.json();
     console.log(data);
-  }
+  };
 
   fetchBirthdays();
 
@@ -34,7 +34,7 @@ function App() {
           count is {count}
         </button>
         <p>
-          Edit <code>src/App.tsx </code> and save to test HMR
+          Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
       <p className="read-the-docs">
