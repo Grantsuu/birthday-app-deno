@@ -37,4 +37,3 @@ jobs:
           project: "low-pigeon-78"
           entrypoint: "https://jsr.io/@std/http/1.0.9/file_server.ts --prod"
           root: "client/dist"
-

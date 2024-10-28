@@ -48,7 +48,7 @@ async function handler(req: Request): Promise<Response> {
     client.end();
   }
 
-  return new Response("Not found", {
+  return new Response("Not found ", {
     status: 404,
   });
 }
