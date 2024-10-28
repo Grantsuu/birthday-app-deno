@@ -15,7 +15,6 @@
   // "postCreateCommand": "yarn install",
 
   // Configure tool-specific properties.
-
   "customizations": {
     "jetbrains": {
       "backend": "IntelliJ"

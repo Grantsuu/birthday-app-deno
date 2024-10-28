@@ -28,6 +28,8 @@ export async function getBirthdays(
         headers: { "Content-Type": "application/json" },
       },
     );
+  } finally {
+    client.end();
   }
 }
 
@@ -61,6 +63,8 @@ export async function addBirthday(
         headers: { "Content-Type": "application/json" },
       },
     );
+  } finally {
+    client.end();
   }
 }
 
@@ -75,8 +79,8 @@ export async function editBirthday(
     const query = buildPatchSqlQuery(
       "birthdays",
       birthday,
-      { userId: id, id: birthday.id },
-      [],
+      { id: id },
+      ['id', 'name', 'date'],
     );
 
     const result = await client.queryObject(query);
@@ -96,12 +100,13 @@ export async function editBirthday(
         headers: { "Content-Type": "application/json" },
       },
     );
+  } finally {
+    client.end();
   }
 }
 
 export async function deleteBirthday(
   id: string,
-  birthdayId: string,
   client: Client,
 ): Promise<Response> {
   try {
@@ -110,9 +115,9 @@ export async function deleteBirthday(
     const result = await client.queryObject`
         DELETE
         FROM birthdays
-        WHERE "userId" = ${id}
-          AND id = ${birthdayId} RETURNING id;
+        WHERE id = ${id} RETURNING id;
     `;
+    // AND id = ${birthdayId}
 
     // Encode the result as JSON
     const body = JSON.stringify(result.rows, null, 2);
@@ -129,5 +134,7 @@ export async function deleteBirthday(
         headers: { "Content-Type": "application/json" },
       },
     );
+  } finally {
+    client.end();
   }
 }

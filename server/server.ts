@@ -1,4 +1,4 @@
-import { Hono } from 'hono'
+import { Hono } from "hono";
 import {
   addBirthday,
   deleteBirthday,
@@ -12,54 +12,27 @@ const PORT = Deno.env.get("PORT");
 const app = new Hono();
 const client = createDatabaseClient();
 
-app.get('/api/birthday/:id', async (c)=>{
-  const id = c.req.param('id');
+app.get("/api/birthday/:id", async (c) => {
+  const id = c.req.param("id");
   return await getBirthdays(id, client);
-})
+});
 
-async function handler(req: Request): Promise<Response> {
-  const url = new URL(req.url);
-  const path = url.pathname;
+app.post("/api/birthday/:id", async (c) => {
+  const id = c.req.param("id");
+  const body = await c.req.json();
+  return await addBirthday(id, body, client);
+});
 
-  try {
-    if (path.startsWith("/api/birthday/") && req.method === "GET") {
-      // Get all birthdays for user
-      return await getBirthdays(path.split("/")[3], client);
-    } else if (path.startsWith("/api/birthday/") && req.method === "POST") {
-      // Add birthday for user
-      const body = await req.json();
-      return await addBirthday(path.split("/")[3], body, client);
-    } else if (
-      path.startsWith("/api/birthday/") && req.method === "PATCH"
-    ) {
-      // Edit birthday for user
-      const body = await req.json();
-      return await editBirthday(path.split("/")[3], body, client);
-    } else if (
-      path.startsWith("/api/birthday/") && req.method === "DELETE"
-    ) {
-      // Delete birthday for user
-      const body = await req.json();
-      return await deleteBirthday(path.split("/")[3], body.id, client);
-    }
-  } catch (err) {
-    console.error(err);
-    // If an error occurs, return a 500 response
-    return new Response(
-      `Internal Server Error\n\n${(err as Error).message}`,
-      {
-        status: 500,
-      },
-    );
-  } finally {
-    client.end();
-  }
+app.patch("/api/birthday/:id", async (c) => {
+  const id = c.req.param("id");
+  const body = await c.req.json();
+  return await editBirthday(id, body, client);
+});
 
-  return new Response("Not found ", {
-    status: 404,
-  });
-}
+app.delete("/api/birthday/:id", async (c) => {
+  const id = c.req.param("id");
+  return await deleteBirthday(id, client);
+});
 
 console.log(`API running on port: ${PORT}`);
-// Deno.serve({ port: PORT ? parseInt(PORT) : 8080 }, handler);
-Deno.serve({ port: PORT ? parseInt(PORT) : 8080 }, app.fetch)
+Deno.serve({ port: PORT ? parseInt(PORT) : 8080 }, app.fetch);
