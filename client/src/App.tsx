@@ -7,13 +7,12 @@ import reactLogo from "./assets/react.svg";
 function App() {
   const [count, setCount] = useState(0);
 
-
-  const HOST = import.meta.env.VITE_API;
+  const HOST = import.meta.env.VITE_API_HOST;
 
   console.log(HOST);
 
   const fetchBirthdays = async () => {
-    console.log('in fetch', await import.meta.env.VITE_API);
+    console.log('in fetch', await import.meta.env.VITE_API_HOST);
     const response = await fetch(HOST + "api/birthday/1");
     const data = await response.json();
     console.log(data);
