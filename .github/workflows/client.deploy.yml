@@ -35,5 +35,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "low-pigeon-78"
-          entrypoint: "https://jsr.io/@std/http/1.0.9/file_server.ts --prod"
+          entrypoint: "https://jsr.io/@std/http/1.0.9/file_server.ts"
           root: "client/dist"
