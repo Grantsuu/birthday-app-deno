@@ -19,7 +19,7 @@ function App() {
   };
 
   useEffect(()=>{
-    await fetchBirthdays();
+    fetchBirthdays();
   }, [])
 
   return (
