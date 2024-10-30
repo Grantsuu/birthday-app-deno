@@ -53,7 +53,7 @@ function App() {
     return (
         <>
             {/* Header */}
-            <header className="bg-primary shadow">
+            <header className="bg-accent shadow">
                 <div className="flex justify-between items-center mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8">
                     {/* Title */}
                     <div className="flex space-x-2">
@@ -111,25 +111,15 @@ function App() {
                                 <th></th>
                                 <th className="text-xl">Name</th>
                                 <th className="text-xl">Date</th>
-                                <th></th>
+                                <th className="">
+                                    <button className="btn bg-blue-400 hover:bg-blue-500">Add Birthday</button>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading
                                 ? (
                                     <>
-                                        <tr>
-                                            <td colSpan={4}>
-                                                <div className="skeleton h-5 w-full">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colSpan={4}>
-                                                <div className="skeleton h-5 w-full">
-                                                </div>
-                                            </td>
-                                        </tr>
                                         <tr>
                                             <td colSpan={4}>
                                                 <div className="skeleton h-5 w-full">
@@ -165,10 +155,10 @@ function App() {
                                             </td>
                                             <td>
                                                 <div className="space-x-2">
-                                                    <button className="btn btn-success">
+                                                    <button className="btn btn-secondary">
                                                         Edit
                                                     </button>
-                                                    <button className="btn btn-error">
+                                                    <button className="btn btn-primary">
                                                         Delete
                                                     </button>
                                                 </div>
