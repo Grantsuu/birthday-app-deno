@@ -3,7 +3,10 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import {
     ArrowLeftStartOnRectangleIcon,
+    CakeIcon,
+    PencilSquareIcon,
     UserIcon,
+    TrashIcon
 } from "@heroicons/react/24/outline";
 
 interface Birthday {
@@ -53,7 +56,7 @@ function App() {
     return (
         <>
             {/* Header */}
-            <header className="bg-accent shadow">
+            <header className="bg-primary shadow">
                 <div className="flex justify-between items-center mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8">
                     {/* Title */}
                     <div className="flex space-x-2">
@@ -111,9 +114,13 @@ function App() {
                                 <th></th>
                                 <th className="text-xl">Name</th>
                                 <th className="text-xl">Date</th>
-                                <th className="">
-                                    <button className="btn bg-blue-400 hover:bg-blue-500">Add Birthday</button>
+                                <th className="flex justify-end">
+                                    <button className="btn bg-blue-400 hover:bg-blue-500 text-neutral-content">
+                                        Add Birthday
+                                        <CakeIcon className='h-6 w-6' />
+                                    </button>
                                 </th>
+                                {/*<th></th>*/}
                             </tr>
                         </thead>
                         <tbody>
@@ -154,12 +161,12 @@ function App() {
                                                 } ${date.getUTCDate()}, ${date.getUTCFullYear()}`}
                                             </td>
                                             <td>
-                                                <div className="space-x-2">
-                                                    <button className="btn btn-secondary">
-                                                        Edit
+                                                <div className="flex justify-end">
+                                                    <button className="btn btn-ghost">
+                                                        <PencilSquareIcon className="h-6 w-6 stroke-success" />
                                                     </button>
-                                                    <button className="btn btn-primary">
-                                                        Delete
+                                                    <button className="btn btn-ghost">
+                                                        <TrashIcon className="h-6 w-6 stroke-error" />
                                                     </button>
                                                 </div>
                                             </td>
