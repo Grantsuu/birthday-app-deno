@@ -5,9 +5,11 @@ import {
     ArrowLeftStartOnRectangleIcon,
     CakeIcon,
     PencilSquareIcon,
+    TrashIcon,
     UserIcon,
-    TrashIcon
 } from "@heroicons/react/24/outline";
+import { API_HOST } from "./helpers/constants.ts";
+import DeleteModal from "./components/DeleteModal/DeleteModal.tsx";
 
 interface Birthday {
     id: number;
@@ -33,10 +35,15 @@ const Months = {
 function App() {
     const [birthdays, setBirthdays] = useState<Birthday[]>();
     const [loading, setLoading] = useState(true);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const handleShowDeleteModal = (show: boolean) => {
+        setShowDeleteModal(show);
+    }
 
     const getBirthdays = async () => {
         const response = await fetch(
-            "https://bold-pheasant-84.deno.dev/api/birthday/1",
+            `${API_HOST}/api/birthday/1`,
         );
         return await response.json();
     };
@@ -107,7 +114,7 @@ function App() {
             </header>
             {/* Body */}
             <main>
-                <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <div className="sm:mx-0 lg:mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     <table className="table table-zebra">
                         <thead>
                             <tr>
@@ -117,10 +124,9 @@ function App() {
                                 <th className="flex justify-end">
                                     <button className="btn bg-blue-400 hover:bg-blue-500 text-neutral-content">
                                         Add Birthday
-                                        <CakeIcon className='h-6 w-6' />
+                                        <CakeIcon className="h-6 w-6" />
                                     </button>
                                 </th>
-                                {/*<th></th>*/}
                             </tr>
                         </thead>
                         <tbody>
@@ -128,22 +134,34 @@ function App() {
                                 ? (
                                     <>
                                         <tr>
-                                            <td colSpan={4}>
-                                                <div className="skeleton h-5 w-full">
-                                                </div>
+                                            <td></td>
+                                            <td>
+                                                <div className="skeleton h-5 w-4/5" />
                                             </td>
+                                            <td>
+                                                <div className="skeleton h-5 w-4/5" />
+                                            </td>
+                                            <td></td>
                                         </tr>
                                         <tr>
-                                            <td colSpan={4}>
-                                                <div className="skeleton h-5 w-full">
-                                                </div>
+                                            <td></td>
+                                            <td>
+                                                <div className="skeleton h-5 w-4/5" />
                                             </td>
+                                            <td>
+                                                <div className="skeleton h-5 w-4/5" />
+                                            </td>
+                                            <td></td>
                                         </tr>
                                         <tr>
-                                            <td colSpan={4}>
-                                                <div className="skeleton h-5 w-full">
-                                                </div>
+                                            <td></td>
+                                            <td>
+                                                <div className="skeleton h-5 w-4/5" />
                                             </td>
+                                            <td>
+                                                <div className="skeleton h-5 w-4/5" />
+                                            </td>
+                                            <td></td>
                                         </tr>
                                     </>
                                 )
@@ -165,7 +183,12 @@ function App() {
                                                     <button className="btn btn-ghost">
                                                         <PencilSquareIcon className="h-6 w-6 stroke-success" />
                                                     </button>
-                                                    <button className="btn btn-ghost">
+                                                    <button
+                                                        className="btn btn-ghost"
+                                                        onClick={() => {
+                                                            setShowDeleteModal(true);
+                                                        }}
+                                                    >
                                                         <TrashIcon className="h-6 w-6 stroke-error" />
                                                     </button>
                                                 </div>
@@ -177,6 +200,8 @@ function App() {
                     </table>
                 </div>
             </main>
+            {/* Delete Modal */}
+            <DeleteModal show={showDeleteModal} setShow={handleShowDeleteModal}/>
         </>
     );
 }
