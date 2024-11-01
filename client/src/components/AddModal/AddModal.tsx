@@ -97,6 +97,7 @@ function AddModal({ show, setShow, getBirthdays, id }: AddModalProps) {
                         {/* Date */}
                         <FormInput
                             name="date"
+                            placeholder="mm/dd/yyyy"
                             type="date"
                             className="input input-bordered"
                         />
