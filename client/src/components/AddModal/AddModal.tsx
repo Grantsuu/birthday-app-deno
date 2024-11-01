@@ -56,7 +56,7 @@ function AddModal({ show, setShow, getBirthdays, id }: AddModalProps) {
                     Please enter the birthday details below.
                 </p>
                 <Formik
-                    initialValues={{ firstName: "", lastName: "", date: "" }}
+                    initialValues={{ firstName: "", lastName: "", date: "2000-01-01" }}
                     validationSchema={Yup.object({
                         firstName: Yup.string()
                             .required("First name is required"),
