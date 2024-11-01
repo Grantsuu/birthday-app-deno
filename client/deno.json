@@ -23,11 +23,13 @@
         "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.3",
         "autoprefixer": "npm:autoprefixer@^10.4.20",
         "daisyui": "npm:daisyui@^4.12.14",
+        "formik": "npm:formik@^2.4.6",
         "postcss": "npm:postcss@^8.4.47",
         "react": "npm:react@^18.3.1",
         "react-dom": "npm:react-dom@^18.3.1",
         "tailwindcss": "npm:tailwindcss@^3.4.14",
-        "vite": "npm:vite@^5.4.9"
+        "vite": "npm:vite@^5.4.9",
+        "yup": "npm:yup@^1.4.0"
     },
     "deploy": {
         "project": "54e3b074-9d4c-4892-bcda-26d74dc2d6a7",
