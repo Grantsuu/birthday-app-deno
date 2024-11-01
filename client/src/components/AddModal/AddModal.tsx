@@ -71,6 +71,7 @@ function AddModal({ show, setShow, getBirthdays, id }: AddModalProps) {
                     })}
                     onSubmit={(values, { setSubmitting }) => {
                         setSubmitting(true);
+                        console.log(values)
                         setTimeout(() => {
                             alert(JSON.stringify(values, null, 2));
                             setSubmitting(false);
@@ -101,30 +102,30 @@ function AddModal({ show, setShow, getBirthdays, id }: AddModalProps) {
                             type="date"
                             className="input input-bordered"
                         />
+                        <div className="flex justify-end space-x-2">
+                            <button
+                                className="btn"
+                                onClick={() => {
+                                    setShow(false);
+                                }}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className="btn bg-blue-400 hover:bg-blue-500 text-neutral-content"
+                                // onClick={() => {
+                                //     handleAddBirthday();
+                                // }}
+                            >
+                                {loading
+                                    ? (
+                                        <span className="loading loading-spinner loading-md"/>
+                                    )
+                                    : "Submit"}
+                            </button>
+                        </div>
                     </Form>
                 </Formik>
-                <div className="flex justify-end space-x-2">
-                    <button
-                        className="btn"
-                        onClick={() => {
-                            setShow(false);
-                        }}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        className="btn bg-blue-400 hover:bg-blue-500 text-neutral-content"
-                        onClick={() => {
-                            handleAddBirthday();
-                        }}
-                    >
-                        {loading
-                            ? (
-                                <span className="loading loading-spinner loading-md" />
-                            )
-                            : "Submit"}
-                    </button>
-                </div>
             </div>
             <form
                 method="dialog"
