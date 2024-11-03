@@ -5,11 +5,11 @@ import {
     PencilSquareIcon,
     TrashIcon,
 } from "@heroicons/react/24/outline";
-import { API_HOST, MONTHS } from "./helpers/constants.ts";
-import ProfileDropdown from "./components/ProfileDropdown/ProfileDropdown.tsx";
-import BirthdayLoader from "./components/BirthdayLoader/BirthdayLoader.tsx";
-import DeleteModal from "./components/DeleteModal/DeleteModal.tsx";
-import AddModal from "./components/AddModal/AddModal.tsx";
+import { API_HOST, MONTHS } from "../../helpers/constants.ts";
+import ProfileDropdown from "../../components/ProfileDropdown/ProfileDropdown.tsx";
+import BirthdayLoader from "../../components/BirthdayLoader/BirthdayLoader.tsx";
+import DeleteModal from "../../components/Modals/DeleteModal/DeleteModal.tsx";
+import AddModal from "../../components/Modals/AddModal/AddModal.tsx";
 
 interface Birthday {
     id: number;
@@ -17,7 +17,7 @@ interface Birthday {
     date: string;
 }
 
-function App() {
+function BirthdayPage() {
     const [birthdays, setBirthdays] = useState<Birthday[]>();
     const [loading, setLoading] = useState(true);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -168,4 +168,4 @@ function App() {
     );
 }
 
-export default App;
+export default BirthdayPage;

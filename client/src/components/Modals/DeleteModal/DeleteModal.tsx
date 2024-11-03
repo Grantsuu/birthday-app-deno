@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { API_HOST } from "../../helpers/constants.ts";
+import { API_HOST } from "../../../helpers/constants.ts";
 
 interface DeleteModalProps {
     show: boolean;
