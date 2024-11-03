@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { API_HOST } from "../../helpers/constants.ts";
-import FormInput from "../FormInput/FormInput.tsx";
+import FormInput from "../Form/FormInput/FormInput.tsx";
 import { Birthday } from "../../../../server/interfaces.ts";
 
 interface AddModalProps {
