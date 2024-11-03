@@ -23,7 +23,10 @@ const FormInput: React.FC<FormInputProps & FieldHookConfig<string>> = (
                 {...rest}
                 className="input input-bordered w-full rounded-md border bg-neutral-content shadow-sm sm:text-sm py-2"
             />
-            <ErrorMessage name={name} component={TextError as React.ComponentType} />
+            <ErrorMessage
+                name={name}
+                component={TextError as React.ComponentType}
+            />
         </div>
     );
 };

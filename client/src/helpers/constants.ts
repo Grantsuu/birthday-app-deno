@@ -1,4 +1,4 @@
-export const API_HOST = 'https://bold-pheasant-84.deno.dev';
+export const API_HOST = "https://bold-pheasant-84.deno.dev";
 
 export const MONTHS = {
     0: "January",

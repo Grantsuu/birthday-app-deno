@@ -1,8 +1,6 @@
 import { useState } from "react";
-import {
-    XMarkIcon
-} from "@heroicons/react/24/outline";
-import {API_HOST} from "../../helpers/constants.ts";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { API_HOST } from "../../helpers/constants.ts";
 
 interface DeleteModalProps {
     show: boolean;
@@ -18,8 +16,8 @@ function DeleteModal({ show, setShow, getBirthdays, id }: DeleteModalProps) {
         const response = await fetch(
             `${API_HOST}/api/birthday/${id}`,
             {
-                method: 'DELETE'
-            }
+                method: "DELETE",
+            },
         );
         return await response.json();
     };
@@ -35,7 +33,7 @@ function DeleteModal({ show, setShow, getBirthdays, id }: DeleteModalProps) {
             .finally(() => {
                 setLoading(false);
             });
-    }
+    };
 
     return (
         <dialog className="modal" open={show}>
@@ -46,7 +44,7 @@ function DeleteModal({ show, setShow, getBirthdays, id }: DeleteModalProps) {
                         setShow(false);
                     }}
                 >
-                    <XMarkIcon className='h-5 w-5'/>
+                    <XMarkIcon className="h-5 w-5" />
                 </button>
                 <h3 className="text-lg font-bold">Confirm Delete</h3>
                 <p className="py-4">
@@ -66,13 +64,19 @@ function DeleteModal({ show, setShow, getBirthdays, id }: DeleteModalProps) {
                         onClick={() => {
                             handleDeleteBirthday();
                         }}
-                    >{
-                        loading ? <span className="loading loading-spinner loading-md" /> : 'Delete'
-                    }
+                    >
+                        {loading
+                            ? (
+                                <span className="loading loading-spinner loading-md" />
+                            )
+                            : "Delete"}
                     </button>
                 </div>
             </div>
-            <form method="dialog" className="modal-backdrop bg-neutral bg-opacity-40">
+            <form
+                method="dialog"
+                className="modal-backdrop bg-neutral bg-opacity-40"
+            >
                 <button
                     onClick={() => {
                         setShow(false);

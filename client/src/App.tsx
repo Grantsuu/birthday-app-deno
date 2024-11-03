@@ -108,7 +108,7 @@ function App() {
                                 : birthdays?.map((birthday, index) => {
                                     const date = new Date(birthday.date);
                                     return (
-                                        <tr>
+                                        <tr key={index}>
                                             {/* Number */}
                                             <th>{index + 1}</th>
                                             {/* Name */}

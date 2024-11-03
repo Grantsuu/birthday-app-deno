@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { API_HOST } from "../../helpers/constants.ts";
 import FormInput from "../FormInput/FormInput.tsx";
+import { Birthday } from "../../../../server/interfaces.ts";
 
 interface AddModalProps {
     show: boolean;
@@ -13,31 +13,18 @@ interface AddModalProps {
 }
 
 function AddModal({ show, setShow, getBirthdays, id }: AddModalProps) {
-    const [loading, setLoading] = useState(false);
-
-    const addBirthday = async () => {
+    const addBirthday = async (birthday: Birthday) => {
         const response = await fetch(
             `${API_HOST}/api/birthday/1`,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: {},
+                body: JSON.stringify(
+                    birthday,
+                ),
             },
         );
         return await response.json();
-    };
-
-    const handleAddBirthday = () => {
-        setLoading(true);
-        // TODO: Need to handle error case on add
-        addBirthday()
-            .then(() => {
-                setShow(false);
-                getBirthdays();
-            })
-            .finally(() => {
-                setLoading(false);
-            });
     };
 
     return (
@@ -56,7 +43,11 @@ function AddModal({ show, setShow, getBirthdays, id }: AddModalProps) {
                     Please enter the birthday details below.
                 </p>
                 <Formik
-                    initialValues={{ firstName: "", lastName: "", date: "2000-01-01" }}
+                    initialValues={{
+                        firstName: "",
+                        lastName: "",
+                        date: "2000-01-01",
+                    }}
                     validationSchema={Yup.object({
                         firstName: Yup.string()
                             .required("First name is required"),
@@ -71,60 +62,69 @@ function AddModal({ show, setShow, getBirthdays, id }: AddModalProps) {
                     })}
                     onSubmit={(values, { setSubmitting }) => {
                         setSubmitting(true);
-                        console.log(values)
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
+                        addBirthday({
+                            name: `${values.firstName} ${values.lastName}`,
+                            date: values.date,
+                        }).then(() => {
                             setSubmitting(false);
-                        }, 400);
+                            setShow(false);
+                            getBirthdays();
+                        });
                     }}
                 >
-                    <Form>
-                        {/* First Name */}
-                        <div className="grid grid-cols-2 gap-2">
+                    {(formik) => (
+                        <Form>
+                            {/* First Name */}
+                            <div className="grid grid-cols-2 gap-2">
+                                <FormInput
+                                    name="firstName"
+                                    placeholder="First Name"
+                                    type="text"
+                                    className="input input-bordered"
+                                    disabled={formik.isSubmitting}
+                                />
+                                {/* Last Name */}
+                                <FormInput
+                                    name="lastName"
+                                    placeholder="Last Name"
+                                    type="text"
+                                    className="input input-bordered"
+                                    disabled={formik.isSubmitting}
+                                />
+                            </div>
+                            {/* Date */}
                             <FormInput
-                                name="firstName"
-                                placeholder="First Name"
-                                type="text"
+                                name="date"
+                                placeholder="mm/dd/yyyy"
+                                type="date"
                                 className="input input-bordered"
+                                disabled={formik.isSubmitting}
                             />
-                            {/* Last Name */}
-                            <FormInput
-                                name="lastName"
-                                placeholder="Last Name"
-                                type="text"
-                                className="input input-bordered"
-                            />
-                        </div>
-                        {/* Date */}
-                        <FormInput
-                            name="date"
-                            placeholder="mm/dd/yyyy"
-                            type="date"
-                            className="input input-bordered"
-                        />
-                        <div className="flex justify-end space-x-2">
-                            <button
-                                className="btn"
-                                onClick={() => {
-                                    setShow(false);
-                                }}
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                className="btn bg-blue-400 hover:bg-blue-500 text-neutral-content"
-                                // onClick={() => {
-                                //     handleAddBirthday();
-                                // }}
-                            >
-                                {loading
-                                    ? (
-                                        <span className="loading loading-spinner loading-md"/>
-                                    )
-                                    : "Submit"}
-                            </button>
-                        </div>
-                    </Form>
+                            {/* Buttons */}
+                            <div className="flex justify-end space-x-2">
+                                {/* Cancel */}
+                                <button
+                                    className="btn"
+                                    onClick={() => {
+                                        setShow(false);
+                                    }}
+                                >
+                                    Cancel
+                                </button>
+                                {/* Submit */}
+                                <button
+                                    type="submit"
+                                    className="btn bg-blue-400 hover:bg-blue-500 text-neutral-content"
+                                >
+                                    {formik.isSubmitting
+                                        ? (
+                                            <span className="loading loading-spinner loading-md" />
+                                        )
+                                        : "Submit"}
+                                </button>
+                            </div>
+                        </Form>
+                    )}
                 </Formik>
             </div>
             <form
