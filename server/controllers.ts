@@ -11,7 +11,8 @@ export async function getBirthdays(
     const result = await client.queryObject`
       SELECT *
       FROM birthdays
-      WHERE "userId" = ${id};
+      WHERE "userId" = ${id}
+      ORDER BY date;
     `;
 
     // Encode the result as JSON

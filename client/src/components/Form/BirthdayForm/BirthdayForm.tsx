@@ -3,10 +3,11 @@ import FormInput from "../FormInput/FormInput.tsx";
 import { Birthday } from "../../../../../server/interfaces.ts";
 
 interface BirthdayFormProps {
+    setShow: (show: boolean) => void;
     editMode?: boolean;
 }
 
-function BirthdayForm({editMode}: BirthdayFormProps) {
+function BirthdayForm({ setShow, editMode }: BirthdayFormProps) {
     const formik = useFormikContext<Birthday>();
     return (
         <Form>
@@ -41,10 +42,11 @@ function BirthdayForm({editMode}: BirthdayFormProps) {
             <div className="flex justify-end space-x-2">
                 {/* Cancel */}
                 <button
+                    type="button"
                     className="btn"
                     onClick={() => {
                         formik.resetForm();
-                        // setShow(false);
+                        setShow(false);
                     }}
                 >
                     Cancel
@@ -52,13 +54,17 @@ function BirthdayForm({editMode}: BirthdayFormProps) {
                 {/* Submit */}
                 <button
                     type="submit"
-                    className={editMode ? "btn btn-success text-neutral-content" : "btn bg-blue-400 hover:bg-blue-500 text-neutral-content"}
+                    className={editMode
+                        ? "btn btn-success text-neutral-content"
+                        : "btn bg-blue-400 hover:bg-blue-500 text-neutral-content"}
                 >
                     {formik.isSubmitting
                         ? (
                             <span className="loading loading-spinner loading-md" />
                         )
-                        : editMode ? "Edit" : "Submit"}
+                        : editMode
+                        ? "Save"
+                        : "Submit"}
                 </button>
             </div>
         </Form>

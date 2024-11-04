@@ -177,6 +177,7 @@ function BirthdayPage() {
                 show={showEditModal}
                 setShow={handleShowEditModal}
                 getBirthdays={handleGetBirthdays}
+                editID={editID ? editID : 0}
             />
             {/* Delete Modal */}
             <DeleteModal

@@ -77,7 +77,7 @@ function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
                         <p className="py-4">
                             Please enter the birthday details below.
                         </p>
-                        <BirthdayForm />
+                        <BirthdayForm setShow={setShow} />
                     </div>
                     {/* Backdrop */}
                     <form
