@@ -12,7 +12,7 @@ export async function getBirthdays(
       SELECT *
       FROM birthdays
       WHERE "userId" = ${id}
-      ORDER BY date;
+      ORDER BY date ASC;
     `;
 
     // Encode the result as JSON

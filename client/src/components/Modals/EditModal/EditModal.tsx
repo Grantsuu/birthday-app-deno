@@ -60,82 +60,86 @@ function EditModal({ show, setShow, getBirthdays, editID }: EditModalProps) {
     }, [show]);
 
     return (
-        loading
-            ? <span className="loading loading-spinner loading-md" />
-            : (
-                <Formik
-                    initialValues={{
-                        firstName: birthday ? birthday.name.split(" ")[0] : "",
-                        lastName: birthday ? birthday.name.split(" ")[1] : "",
-                        date: birthday
-                            ? birthday.date.split("T")[0]
-                            : "2000-01-01",
-                    } as BirthdayFormFields}
-                    onSubmit={(values, { resetForm, setSubmitting }) => {
-                        setSubmitting(true);
-                        patchBirthday({
-                            name: `${encodeURIComponent(values.firstName)} ${
-                                encodeURIComponent(values.lastName)
-                            }`,
-                            date: encodeURIComponent(values.date),
-                        }).then(() => {
-                            setSubmitting(false);
-                            resetForm();
-                            setShow(false);
-                            getBirthdays();
-                        });
-                    }}
-                    validationSchema={Yup.object({
-                        firstName: Yup.string()
-                            .required("First name is required"),
-                        lastName: Yup.string()
-                            .required("Last name is required"),
-                        date: Yup.string()
-                            .required("Date is required")
-                            .matches(
-                                /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/,
-                                "Date must be in YYYY-MM-DD format",
-                            ),
-                    })}
-                >
-                    {(formik) => (
-                        <dialog className="modal" open={show}>
-                            <div className="modal-box">
-                                <button
-                                    className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                                    onClick={() => {
-                                        formik.resetForm();
-                                        setShow(false);
-                                    }}
-                                >
-                                    <XMarkIcon className="h-5 w-5" />
-                                </button>
-                                <h3 className="text-lg font-bold">
-                                    Edit Birthday
-                                </h3>
-                                <p className="py-4">
-                                    Please enter the new birthday details below.
-                                </p>
-                                <BirthdayForm setShow={setShow} editMode />
-                            </div>
-                            {/* Backdrop */}
-                            <form
-                                method="dialog"
-                                className="modal-backdrop bg-neutral bg-opacity-40"
-                            >
-                                <button
-                                    onClick={() => {
-                                        formik.resetForm();
-                                        setShow(false);
-                                    }}
-                                >
-                                    close
-                                </button>
-                            </form>
-                        </dialog>
-                    )}
-                </Formik>
-            )
+        <Formik
+            initialValues={{
+                firstName: birthday ? birthday.name.split(" ")[0] : "",
+                lastName: birthday ? birthday.name.split(" ")[1] : "",
+                date: birthday ? birthday.date.split("T")[0] : "2000-01-01",
+            } as BirthdayFormFields}
+            onSubmit={(values, { resetForm, setSubmitting }) => {
+                setSubmitting(true);
+                patchBirthday({
+                    name: `${encodeURIComponent(values.firstName)} ${
+                        encodeURIComponent(values.lastName)
+                    }`,
+                    date: encodeURIComponent(values.date),
+                }).then(() => {
+                    setSubmitting(false);
+                    resetForm();
+                    setShow(false);
+                    getBirthdays();
+                });
+            }}
+            validationSchema={Yup.object({
+                firstName: Yup.string()
+                    .required("First name is required"),
+                lastName: Yup.string()
+                    .required("Last name is required"),
+                date: Yup.string()
+                    .required("Date is required")
+                    .matches(
+                        /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/,
+                        "Date must be in YYYY-MM-DD format",
+                    ),
+            })}
+        >
+            {(formik) => (
+                <dialog className="modal" open={show}>
+                    <div className="modal-box">
+                        <button
+                            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                            onClick={() => {
+                                formik.resetForm();
+                                setShow(false);
+                            }}
+                        >
+                            <XMarkIcon className="h-5 w-5" />
+                        </button>
+                        <h3 className="text-lg font-bold">
+                            Edit Birthday
+                        </h3>
+                        <p className="py-4">
+                            Please enter the new birthday details below.
+                        </p>
+                        {loading
+                            ? (
+                                <div className="grid grid-cols-1 gap-2">
+                                    <div className="grid grid-cols-2 gap-2">
+                                        <div className="skeleton h-8 w-full" />
+                                        <div className="skeleton h-8 w-full" />
+                                    </div>
+                                    <div className="skeleton h-8 w-full" />
+                                </div>
+                            )
+                            : <BirthdayForm setShow={setShow} editMode />}
+                    </div>
+                    {/* Backdrop */}
+                    <form
+                        method="dialog"
+                        className="modal-backdrop bg-neutral bg-opacity-40"
+                    >
+                        <button
+                            onClick={() => {
+                                formik.resetForm();
+                                setShow(false);
+                            }}
+                        >
+                            close
+                        </button>
+                    </form>
+                </dialog>
+            )}
+        </Formik>
     );
 }
 export default EditModal;
