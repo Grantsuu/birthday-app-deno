@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -6,18 +7,21 @@ import { Birthday } from "../../../../../server/interfaces.ts";
 import BirthdayForm from "../../Form/BirthdayForm/BirthdayForm.tsx";
 import { BirthdayFormFields } from "../../../helpers/interfaces.ts";
 
-interface AddModalProps {
+interface EditModalProps {
     show: boolean;
     setShow: (show: boolean) => void;
     getBirthdays: () => void;
 }
 
-function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
-    const addBirthday = async (birthday: Birthday) => {
+function EditModal({ show, setShow, getBirthdays }: EditModalProps) {
+    const [birthday, setBirthday] = useState<Birthday[]>();
+    const [loading, setLoading] = useState(true);
+
+    const patchBirthday = async (birthday: Birthday) => {
         const response = await fetch(
             `${API_HOST}/api/birthday/1`,
             {
-                method: "POST",
+                method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(
                     birthday,
@@ -26,6 +30,33 @@ function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
         );
         return await response.json();
     };
+
+    const getBirthday = async (id: number) => {
+        const response = await fetch(
+            `${API_HOST}/api/birthday?id=${id}`,
+            {
+                method: "GET",
+            },
+        );
+        return await response.json();
+    };
+
+    const handleGetBirthdays = () => {
+        setLoading(true);
+        getBirthday(1)
+            .then((res) => {
+                setBirthday(res);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
+    useEffect(() => {
+        if (show) {
+            handleGetBirthdays();
+        }
+    }, [show]);
 
     return (
         <Formik
@@ -36,7 +67,7 @@ function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
             } as BirthdayFormFields}
             onSubmit={(values, { resetForm, setSubmitting }) => {
                 setSubmitting(true);
-                addBirthday({
+                patchBirthday({
                     name: `${encodeURIComponent(values.firstName)} ${
                         encodeURIComponent(values.lastName)
                     }`,
@@ -73,11 +104,11 @@ function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
                         >
                             <XMarkIcon className="h-5 w-5" />
                         </button>
-                        <h3 className="text-lg font-bold">Add Birthday</h3>
+                        <h3 className="text-lg font-bold">Edit Birthday</h3>
                         <p className="py-4">
-                            Please enter the birthday details below.
+                            Please enter the new birthday details below.
                         </p>
-                        <BirthdayForm />
+                        <BirthdayForm editMode />
                     </div>
                     {/* Backdrop */}
                     <form
@@ -98,4 +129,4 @@ function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
         </Formik>
     );
 }
-export default AddModal;
+export default EditModal;

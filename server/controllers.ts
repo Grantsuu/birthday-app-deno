@@ -9,7 +9,8 @@ export async function getBirthdays(
   try {
     await client.connect();
     const result = await client.queryObject`
-      SELECT * FROM birthdays
+      SELECT *
+      FROM birthdays
       WHERE "userId" = ${id};
     `;
 
@@ -27,6 +28,38 @@ export async function getBirthdays(
         status: 500,
         headers: { "Content-Type": "application/json" },
       },
+    );
+  } finally {
+    client.end();
+  }
+}
+
+export async function getBirthday(
+    id: string,
+    client: Client,
+): Promise<Response> {
+  try {
+    await client.connect();
+    const result = await client.queryObject`
+      SELECT *
+      FROM birthdays
+      WHERE "id" = ${id};
+    `;
+
+    // Encode the result as JSON
+    const body = JSON.stringify(result.rows, null, 2);
+
+    // Return the result as JSON
+    return new Response(body, {
+      headers: { "content-type": "application/json" },
+    });
+  } catch (error) {
+    return new Response(
+        JSON.stringify({ error: (error as Error).message }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        },
     );
   } finally {
     client.end();

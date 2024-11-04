@@ -8,8 +8,9 @@ import {
 import { API_HOST, MONTHS } from "../../helpers/constants.ts";
 import ProfileDropdown from "../../components/ProfileDropdown/ProfileDropdown.tsx";
 import BirthdayLoader from "../../components/BirthdayLoader/BirthdayLoader.tsx";
-import DeleteModal from "../../components/Modals/DeleteModal/DeleteModal.tsx";
 import AddModal from "../../components/Modals/AddModal/AddModal.tsx";
+import EditModal from "../../components/Modals/EditModal/EditModal.tsx";
+import DeleteModal from "../../components/Modals/DeleteModal/DeleteModal.tsx";
 
 interface Birthday {
     id: number;
@@ -20,28 +21,34 @@ interface Birthday {
 function BirthdayPage() {
     const [birthdays, setBirthdays] = useState<Birthday[]>();
     const [loading, setLoading] = useState(true);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [editID, setEditID] = useState<number | undefined>(undefined);
     const [deleteID, setDeleteID] = useState(0);
 
     const handleShowAddModal = (show: boolean) => {
         setShowAddModal(show);
     };
 
+    const handleShowEditModal = (show: boolean) => {
+        setShowEditModal(show);
+    };
+
     const handleShowDeleteModal = (show: boolean) => {
         setShowDeleteModal(show);
     };
 
-    const getBirthdays = async () => {
+    const getBirthdays = async (id: number) => {
         const response = await fetch(
-            `${API_HOST}/api/birthday/1`,
+            `${API_HOST}/api/birthday/${id}`,
         );
         return await response.json();
     };
 
     const handleGetBirthdays = () => {
         setLoading(true);
-        getBirthdays()
+        getBirthdays(1)
             .then((res) => {
                 setBirthdays(res);
             })
@@ -125,7 +132,15 @@ function BirthdayPage() {
                                             <td>
                                                 <div className="flex justify-end">
                                                     {/* Edit Button */}
-                                                    <button className="btn btn-ghost">
+                                                    <button
+                                                        className="btn btn-ghost"
+                                                        onClick={() => {
+                                                            setEditID(birthday.id);
+                                                            setShowEditModal(
+                                                                true,
+                                                            );
+                                                        }}
+                                                    >
                                                         <PencilSquareIcon className="h-6 w-6 stroke-success" />
                                                     </button>
                                                     {/* Delete Button */}
@@ -151,18 +166,24 @@ function BirthdayPage() {
                     </table>
                 </div>
             </main>
+            {/* Add Modal */}
+            <AddModal
+                show={showAddModal}
+                setShow={handleShowAddModal}
+                getBirthdays={handleGetBirthdays}
+            />
+            {/* Edit Modal */}
+            <EditModal
+                show={showEditModal}
+                setShow={handleShowEditModal}
+                getBirthdays={handleGetBirthdays}
+            />
             {/* Delete Modal */}
             <DeleteModal
                 show={showDeleteModal}
                 setShow={handleShowDeleteModal}
                 getBirthdays={handleGetBirthdays}
                 id={deleteID}
-            />
-            <AddModal
-                show={showAddModal}
-                setShow={handleShowAddModal}
-                getBirthdays={handleGetBirthdays}
-                id={1}
             />
         </>
     );
