@@ -1,3 +1,5 @@
+import * as Yup from "yup";
+
 export const API_HOST = "https://bold-pheasant-84.deno.dev";
 
 export const MONTHS = {
@@ -14,3 +16,24 @@ export const MONTHS = {
     10: "November",
     11: "December",
 };
+
+export const BIRTHDAY_FORM_SCHEMA = Yup.object({
+    firstName: Yup.string()
+        .required("First name is required")
+        .matches(
+            /^[a-zA-Z@]+$/,
+            "First name man only contain letters",
+        ),
+    lastName: Yup.string()
+        .required("Last name is required")
+        .matches(
+            /^[a-zA-Z@]+$/,
+            "Last name man only contain letters",
+        ),
+    date: Yup.string()
+        .required("Date is required")
+        .matches(
+            /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/,
+            "Date must be in YYYY-MM-DD format",
+        ),
+});

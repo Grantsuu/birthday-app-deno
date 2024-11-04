@@ -1,7 +1,6 @@
 import { Formik } from "formik";
-import * as Yup from "yup";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { API_HOST } from "../../../helpers/constants.ts";
+import {API_HOST, BIRTHDAY_FORM_SCHEMA} from "../../../helpers/constants.ts";
 import { Birthday } from "../../../../../server/interfaces.ts";
 import BirthdayForm from "../../Form/BirthdayForm/BirthdayForm.tsx";
 import { BirthdayFormFields } from "../../../helpers/interfaces.ts";
@@ -48,18 +47,7 @@ function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
                     getBirthdays();
                 });
             }}
-            validationSchema={Yup.object({
-                firstName: Yup.string()
-                    .required("First name is required"),
-                lastName: Yup.string()
-                    .required("Last name is required"),
-                date: Yup.string()
-                    .required("Date is required")
-                    .matches(
-                        /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/,
-                        "Date must be in YYYY-MM-DD format",
-                    ),
-            })}
+            validationSchema={BIRTHDAY_FORM_SCHEMA}
         >
             {(formik) => (
                 <dialog className="modal" open={show}>
