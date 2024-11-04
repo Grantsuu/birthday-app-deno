@@ -22,13 +22,13 @@ export const BIRTHDAY_FORM_SCHEMA = Yup.object({
         .required("First name is required")
         .matches(
             /^[a-zA-Z@]+$/,
-            "First name man only contain letters",
+            "First name may only contain letters",
         ),
     lastName: Yup.string()
         .required("Last name is required")
         .matches(
             /^[a-zA-Z@]+$/,
-            "Last name man only contain letters",
+            "Last name may only contain letters",
         ),
     date: Yup.string()
         .required("Date is required")
