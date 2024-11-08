@@ -10,7 +10,7 @@ const FormInput: React.FC<FormInputProps & FieldHookConfig<string>> = (
     { name, label, ...rest },
 ) => {
     return (
-        <div className="mb-4">
+        <div>
             <label
                 htmlFor={name}
                 className="block text-xs font-medium text-gray-700"
