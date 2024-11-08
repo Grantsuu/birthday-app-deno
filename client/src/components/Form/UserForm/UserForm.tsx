@@ -4,6 +4,7 @@ import FormInput from "../FormInput/FormInput.tsx";
 import { UserFormFields } from "../../../helpers/interfaces.ts";
 
 interface UserFormProps {
+    submitLabel: string;
     name?: boolean;
     email?: boolean;
     phone?: boolean;
@@ -13,8 +14,15 @@ interface UserFormProps {
 }
 
 function UserForm(
-    { name, email, phone, forgotPassword, confirmPassword, password }:
-        UserFormProps,
+    {
+        submitLabel,
+        name,
+        email,
+        phone,
+        forgotPassword,
+        confirmPassword,
+        password,
+    }: UserFormProps,
 ) {
     const formik = useFormikContext<UserFormFields>();
     return (
@@ -72,8 +80,9 @@ function UserForm(
                             type="text"
                             disabled={formik.isSubmitting}
                         />
+                        {/* Forgot Password */}
                         {forgotPassword && (
-                            <div className="mt-1 ml-2 mb-4 text-sm text-gray-600">
+                            <div className="mt-1 ml-1 mb-4 text-sm text-gray-600">
                                 <Link to={"/reset-password"}>
                                     Forgot password?
                                 </Link>
@@ -98,7 +107,9 @@ function UserForm(
                 type="submit"
                 className="btn btn-primary w-full"
             >
-                Login
+                {formik.isSubmitting
+                    ? <span className="loading loading-spinner loading-md" />
+                    : submitLabel}
             </button>
         </Form>
     );

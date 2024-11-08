@@ -12,7 +12,7 @@ function BirthdayForm({ setShow, editMode }: BirthdayFormProps) {
     return (
         <Form>
             {/* Name */}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 mb-4">
                 {/* First Name */}
                 <FormInput
                     name="firstName"
@@ -31,13 +31,15 @@ function BirthdayForm({ setShow, editMode }: BirthdayFormProps) {
                 />
             </div>
             {/* Date */}
-            <FormInput
-                name="date"
-                placeholder="mm/dd/yyyy"
-                type="date"
-                className="input input-bordered"
-                disabled={formik.isSubmitting}
-            />
+            <div className="mb-4">
+                <FormInput
+                    name="date"
+                    placeholder="mm/dd/yyyy"
+                    type="date"
+                    className="input input-bordered"
+                    disabled={formik.isSubmitting}
+                />
+            </div>
             {/* Buttons */}
             <div className="flex justify-end space-x-2">
                 {/* Cancel */}
