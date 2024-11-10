@@ -14,7 +14,11 @@ function AccountLayout() {
                 </h1>
             </div>
             <div className="flex w-1/4 justify-center">
-                <Outlet />
+                <div className="card-compact rounded-box  w-full shadow-xl bg-base-200">
+                    <div className="card-body">
+                        <Outlet />
+                    </div>
+                </div>
             </div>
         </div>
     );

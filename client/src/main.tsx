@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AccountLayout from "./pages/account/AccountLayout.tsx";
 import Birthday from "./pages/BirthdayPage/BirthdayPage.tsx";
 import Login from "./pages/account/Login.tsx";
+import Register from "./pages/account/Register.tsx";
+import ResetPassword from "./pages/account/ResetPassword.tsx";
 
 const router = createBrowserRouter([
     {
@@ -18,6 +20,14 @@ const router = createBrowserRouter([
             {
                 path: "login",
                 element: <Login />,
+            },
+            {
+                path: "register",
+                element: <Register />,
+            },
+            {
+                path: "reset-password",
+                element: <ResetPassword />,
             },
         ],
     },

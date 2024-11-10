@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import * as Yup from "yup";
 import { Form, useFormikContext } from "formik";
 import FormInput from "../FormInput/FormInput.tsx";
 import { UserFormFields } from "../../../helpers/interfaces.ts";
@@ -24,7 +25,30 @@ function UserForm(
         password,
     }: UserFormProps,
 ) {
+    const USER_FORM_SCHEMA = Yup.object({
+        firstName: Yup.string()
+            .required("First name is required")
+            .matches(
+                /^[a-zA-Z@]+$/,
+                "First name may only contain letters",
+            ),
+        lastName: Yup.string()
+            .required("Last name is required")
+            .matches(
+                /^[a-zA-Z@]+$/,
+                "Last name may only contain letters",
+            ),
+        email: Yup.string()
+            .required("Email is required"),
+        phone: Yup.string()
+            .required("Phone is required"),
+        password: Yup.string()
+            .required("Password is required"),
+        confirmPassword: Yup.string()
+            .required("Please confirm your password"),
+    });
     const formik = useFormikContext<UserFormFields>();
+    formik.validationSchema = USER_FORM_SCHEMA;
     return (
         <Form>
             {/* Name */}
