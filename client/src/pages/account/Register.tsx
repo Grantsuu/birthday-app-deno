@@ -14,7 +14,7 @@ function Register() {
                 confirmPassword
             />
             <div className="flex justify-center ml-2">
-                <Link to={"/login"}>Return to Login</Link>
+                <Link to={"/login"}>Back to Login</Link>
             </div>
         </>
     );
