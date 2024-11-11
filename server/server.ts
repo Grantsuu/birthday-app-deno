@@ -4,7 +4,7 @@ import {
     addBirthday,
     deleteBirthday,
     editBirthday,
-    getBirthday,
+    getBirthdayById,
     getBirthdays,
 } from "./controllers.ts";
 import { createDatabaseClient } from "./database.ts";
@@ -28,7 +28,7 @@ app.get("/api/birthday/:id", async (c) => {
 
 app.get("/api/birthday", async (c) => {
     const id = c.req.query("id");
-    return await getBirthday(id ? id : "", client);
+    return await getBirthdayById(id ? id : "", client);
 });
 
 app.post("/api/birthday/:id", async (c) => {

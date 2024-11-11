@@ -7,7 +7,8 @@ export interface User {
 }
 
 export interface Birthday {
-  id?: string;
-  name?: string;
-  date?: string; // YYYY-MM-DD
+    id?: string;
+    firstName?: string;
+    lastName?: string;
+    date?: string; // YYYY-MM-DD
 }

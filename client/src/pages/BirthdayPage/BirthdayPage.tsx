@@ -6,17 +6,19 @@ import {
     TrashIcon,
 } from "@heroicons/react/24/outline";
 import { API_HOST, MONTHS } from "../../helpers/constants.ts";
+import { Birthday } from "../../../../server/interfaces.ts";
 import ProfileDropdown from "../../components/ProfileDropdown/ProfileDropdown.tsx";
 import BirthdayLoader from "../../components/BirthdayLoader/BirthdayLoader.tsx";
 import AddModal from "../../components/Modals/AddModal/AddModal.tsx";
 import EditModal from "../../components/Modals/EditModal/EditModal.tsx";
 import DeleteModal from "../../components/Modals/DeleteModal/DeleteModal.tsx";
 
-interface Birthday {
-    id: number;
-    name: string;
-    date: string;
-}
+// interface Birthday {
+//     id: number;
+//     firstName: string;
+//     lastName: string;
+//     date: string;
+// }
 
 function BirthdayPage() {
     const [birthdays, setBirthdays] = useState<Birthday[]>();
@@ -112,14 +114,19 @@ function BirthdayPage() {
                                         <BirthdayLoader />
                                     </>
                                 )
-                                : birthdays?.map((birthday, index) => {
-                                    const date = new Date(birthday.date);
+                                : birthdays
+                                ? birthdays.map((birthday, index) => {
+                                    const date = new Date(
+                                        birthday.date ? birthday.date : "",
+                                    );
                                     return (
                                         <tr key={index}>
                                             {/* Number */}
                                             <th>{index + 1}</th>
                                             {/* Name */}
-                                            <td>{birthday.name}</td>
+                                            <td>
+                                                {`${birthday.firstName} ${birthday.lastName}`}
+                                            </td>
                                             {/* Date */}
                                             <td>
                                                 {`${
@@ -136,7 +143,13 @@ function BirthdayPage() {
                                                         className="btn btn-ghost"
                                                         onClick={() => {
                                                             setEditID(
-                                                                birthday.id,
+                                                                Number(
+                                                                    birthday
+                                                                            .id
+                                                                        ? birthday
+                                                                            .id
+                                                                        : 0,
+                                                                ),
                                                             );
                                                             setShowEditModal(
                                                                 true,
@@ -153,7 +166,13 @@ function BirthdayPage() {
                                                                 true,
                                                             );
                                                             setDeleteID(
-                                                                birthday.id,
+                                                                Number(
+                                                                    birthday
+                                                                            .id
+                                                                        ? birthday
+                                                                            .id
+                                                                        : 0,
+                                                                ),
                                                             );
                                                         }}
                                                     >
@@ -163,7 +182,8 @@ function BirthdayPage() {
                                             </td>
                                         </tr>
                                     );
-                                })}
+                                })
+                                : <>No Birthdays found!</>}
                         </tbody>
                     </table>
                 </div>

@@ -36,9 +36,8 @@ function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
             onSubmit={(values, { resetForm, setSubmitting }) => {
                 setSubmitting(true);
                 addBirthday({
-                    name: `${encodeURIComponent(values.firstName)} ${
-                        encodeURIComponent(values.lastName)
-                    }`,
+                    firstName: `${encodeURIComponent(values.firstName)}`,
+                    lastName: `${encodeURIComponent(values.lastName)}`,
                     date: encodeURIComponent(values.date),
                 }).then(() => {
                     setSubmitting(false);

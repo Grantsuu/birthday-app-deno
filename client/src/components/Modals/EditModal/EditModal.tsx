@@ -62,16 +62,15 @@ function EditModal({ show, setShow, getBirthdays, editID }: EditModalProps) {
         <Formik
             enableReinitialize
             initialValues={{
-                firstName: birthday ? birthday.name.split(" ")[0] : "",
-                lastName: birthday ? birthday.name.split(" ")[1] : "",
-                date: birthday ? birthday.date.split("T")[0] : "2000-01-01",
+                firstName: birthday && birthday.firstName ? birthday.firstName.split(" ")[0] : "",
+                lastName: birthday && birthday.lastName ? birthday.lastName.split(" ")[1] : "",
+                date: birthday && birthday.date ? birthday.date.split("T")[0] : "2000-01-01",
             } as BirthdayFormFields}
             onSubmit={(values, { resetForm, setSubmitting }) => {
                 setSubmitting(true);
                 patchBirthday({
-                    name: `${encodeURIComponent(values.firstName)} ${
-                        encodeURIComponent(values.lastName)
-                    }`,
+                    firstName: `${encodeURIComponent(values.firstName)}`,
+                    lastName: `${encodeURIComponent(values.lastName)}`,
                     date: encodeURIComponent(values.date),
                 }).then(() => {
                     setSubmitting(false);
