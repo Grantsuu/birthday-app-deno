@@ -1,21 +1,17 @@
 import { Link } from "react-router-dom";
-import { Formik } from "formik";
-import * as Yup from "yup";
-
-export const RESET_PASSWORD_FORM_SCHEMA = Yup.object({
-    password: Yup.string()
-        .required("Password is required"),
-    confirmPassword: Yup.string()
-        .required("Please confirm your password"),
-});
+import UserForm from "../../components/Form/UserForm/UserForm.tsx";
 
 function ResetPassword() {
     return (
         <>
-            <div className="card-title justify-center">
-                Reset Password
+            <UserForm
+                formLabel="Reset Password"
+                submitLabel="Reset"
+                email
+            />
+            <div className="flex justify-center ml-2">
+                <Link to={"/login"}>Return to Login</Link>
             </div>
-            <Link to={"/login"}>Return to Login</Link>
         </>
     );
 }

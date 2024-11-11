@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {API_HOST, BIRTHDAY_FORM_SCHEMA} from "../../../helpers/constants.ts";
+import { API_HOST, BIRTHDAY_FORM_SCHEMA } from "../../../helpers/constants.ts";
 import { Birthday } from "../../../../../server/interfaces.ts";
 import BirthdayForm from "../../Form/BirthdayForm/BirthdayForm.tsx";
 import { BirthdayFormFields } from "../../../helpers/interfaces.ts";

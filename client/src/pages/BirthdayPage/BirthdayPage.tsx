@@ -135,7 +135,9 @@ function BirthdayPage() {
                                                     <button
                                                         className="btn btn-ghost"
                                                         onClick={() => {
-                                                            setEditID(birthday.id);
+                                                            setEditID(
+                                                                birthday.id,
+                                                            );
                                                             setShowEditModal(
                                                                 true,
                                                             );
