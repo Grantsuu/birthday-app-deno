@@ -76,7 +76,7 @@ export async function addBirthday(
         await client.connect();
 
         const result = await client.queryObject`
-      INSERT INTO birthdays ("userId", firstName, lastName, date)
+      INSERT INTO birthdays ("userId", "firstName", "lastName", date)
       VALUES (${id},
               ${birthday.firstName},
               ${birthday.lastName},
@@ -115,7 +115,7 @@ export async function editBirthday(
             "birthdays",
             birthday,
             { id: id },
-            ["id", "firstName", "lastName", "date"],
+            [`"id"`, `"firstName"`, `"lastName"`, `"date"`],
         );
 
         const result = await client.queryObject(query);
