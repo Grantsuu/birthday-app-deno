@@ -86,12 +86,15 @@ function BirthdayPage() {
             {/* Body */}
             <main>
                 <div className="sm:mx-0 lg:mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                    <table className="table table-zebra">
+                    <table className="table table-zebra table-pin-rows">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th className="text-xl">Name</th>
-                                <th className="text-xl">Date</th>
+                                <th className="text-xl w-1/3 text-center">
+                                    Name
+                                </th>
+                                <th className="text-xl w-1/3 text-center">
+                                    Date
+                                </th>
                                 <th className="flex justify-end">
                                     <button
                                         className="btn bg-blue-400 hover:bg-blue-500 text-neutral-content"
@@ -121,14 +124,12 @@ function BirthdayPage() {
                                     );
                                     return (
                                         <tr key={index}>
-                                            {/* Number */}
-                                            <th>{index + 1}</th>
                                             {/* Name */}
-                                            <td>
+                                            <td className="text-center">
                                                 {`${birthday.firstName} ${birthday.lastName}`}
                                             </td>
                                             {/* Date */}
-                                            <td>
+                                            <td className="text-center">
                                                 {`${
                                                     MONTHS[
                                                         date.getUTCMonth() as keyof typeof MONTHS
