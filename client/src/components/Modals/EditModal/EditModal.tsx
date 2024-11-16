@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
-import { Formik } from "formik";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { API_HOST, BIRTHDAY_FORM_SCHEMA } from "../../../helpers/constants.ts";
+import { API_HOST } from "../../../helpers/constants.ts";
 import { Birthday } from "../../../../../server/interfaces.ts";
+import { useBirthdayContext } from "../../../contexts/BirthdayContext.tsx";
 import BirthdayForm from "../../Form/BirthdayForm/BirthdayForm.tsx";
 import { BirthdayFormFields } from "../../../helpers/interfaces.ts";
 
 interface EditModalProps {
-    show: boolean;
-    setShow: (show: boolean) => void;
     getBirthdays: () => void;
-    editID: number;
 }
 
-function EditModal({ show, setShow, getBirthdays, editID }: EditModalProps) {
+function EditModal({ getBirthdays }: EditModalProps) {
+    const { showEditModal, setShowEditModal, editID } = useBirthdayContext();
+
     const [birthday, setBirthday] = useState<Birthday[]>();
     const [loading, setLoading] = useState(true);
 
@@ -53,19 +52,19 @@ function EditModal({ show, setShow, getBirthdays, editID }: EditModalProps) {
     };
 
     useEffect(() => {
-        if (show) {
+        if (showEditModal) {
             handleGetBirthday();
         }
-    }, [show]);
+    }, [showEditModal]);
 
     return (
-        <dialog className="modal" open={show}>
+        <dialog className="modal" open={showEditModal}>
             <div className="modal-box">
                 <button
                     className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                     onClick={() => {
                         // formik.resetForm();
-                        setShow(false);
+                        setShowEditModal(false);
                     }}
                 >
                     <XMarkIcon className="h-5 w-5" />
@@ -88,7 +87,7 @@ function EditModal({ show, setShow, getBirthdays, editID }: EditModalProps) {
                     )
                     : (
                         <BirthdayForm
-                            setShow={setShow}
+                            setShow={setShowEditModal}
                             handleSubmit={patchBirthday}
                             getBirthdays={getBirthdays}
                             initial={{
@@ -113,7 +112,7 @@ function EditModal({ show, setShow, getBirthdays, editID }: EditModalProps) {
                 <button
                     onClick={() => {
                         // formik.resetForm();
-                        setShow(false);
+                        setShowEditModal(false);
                     }}
                 >
                     close

@@ -6,9 +6,15 @@ interface BirthdayProviderProps {
     children: React.ReactNode;
 }
 const BirthdayProvider = ({ children }: BirthdayProviderProps) => {
+    // Add birthday modal state
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
+    // Edit birthday modal state
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
+    // Delete birthday modal state
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+
+    // ID of birthday being edited
+    const [editID, setEditID] = useState<number | undefined>(undefined);
 
     return (
         <BirthdayContext.Provider
@@ -19,6 +25,8 @@ const BirthdayProvider = ({ children }: BirthdayProviderProps) => {
                 setShowEditModal,
                 showDeleteModal,
                 setShowDeleteModal,
+                editID,
+                setEditID
             }}
         >
             {children}
