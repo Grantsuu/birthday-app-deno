@@ -1,15 +1,16 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { API_HOST } from "../../../helpers/constants.ts";
 import { Birthday } from "../../../../../server/interfaces.ts";
+import { useBirthdayContext } from "../../../contexts/BirthdayContext.tsx";
 import BirthdayForm from "../../Form/BirthdayForm/BirthdayForm.tsx";
 
 interface AddModalProps {
-    show: boolean;
-    setShow: (show: boolean) => void;
     getBirthdays: () => void;
 }
 
-function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
+function AddModal({ getBirthdays }: AddModalProps) {
+    const { showAddModal, setShowAddModal } = useBirthdayContext();
+
     const addBirthday = async (birthday: Birthday) => {
         const response = await fetch(
             `${API_HOST}/api/birthday/1`,
@@ -25,13 +26,13 @@ function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
     };
 
     return (
-        <dialog className="modal" open={show}>
+        <dialog className="modal" open={showAddModal}>
             <div className="modal-box">
                 <button
                     className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                     onClick={() => {
                         // formik.resetForm();
-                        setShow(false);
+                        setShowAddModal(false);
                     }}
                 >
                     <XMarkIcon className="h-5 w-5" />
@@ -41,7 +42,7 @@ function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
                     Please enter the birthday details below.
                 </p>
                 <BirthdayForm
-                    setShow={setShow}
+                    setShow={setShowAddModal}
                     handleSubmit={addBirthday}
                     getBirthdays={getBirthdays}
                 />
@@ -54,7 +55,7 @@ function AddModal({ show, setShow, getBirthdays }: AddModalProps) {
                 <button
                     onClick={() => {
                         // formik.resetForm();
-                        setShow(false);
+                        setShowAddModal(false);
                     }}
                 >
                     close

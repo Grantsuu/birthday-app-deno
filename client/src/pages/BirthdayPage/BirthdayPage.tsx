@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { API_HOST, MONTHS } from "../../helpers/constants.ts";
 import { Birthday } from "../../../../server/interfaces.ts";
+import { useBirthdayContext } from "../../contexts/BirthdayContext.tsx";
 import ProfileDropdown from "../../components/ProfileDropdown/ProfileDropdown.tsx";
 import BirthdayLoader from "../../components/BirthdayLoader/BirthdayLoader.tsx";
 import AddModal from "../../components/Modals/AddModal/AddModal.tsx";
@@ -21,17 +22,13 @@ import DeleteModal from "../../components/Modals/DeleteModal/DeleteModal.tsx";
 // }
 
 function BirthdayPage() {
+    const { setShowAddModal } = useBirthdayContext();
     const [birthdays, setBirthdays] = useState<Birthday[]>();
     const [loading, setLoading] = useState(true);
-    const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [editID, setEditID] = useState<number | undefined>(undefined);
     const [deleteID, setDeleteID] = useState(0);
-
-    const handleShowAddModal = (show: boolean) => {
-        setShowAddModal(show);
-    };
 
     const handleShowEditModal = (show: boolean) => {
         setShowEditModal(show);
@@ -191,8 +188,6 @@ function BirthdayPage() {
             </main>
             {/* Add Modal */}
             <AddModal
-                show={showAddModal}
-                setShow={handleShowAddModal}
                 getBirthdays={handleGetBirthdays}
             />
             {/* Edit Modal */}
