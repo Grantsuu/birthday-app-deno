@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { API_HOST } from "../../../helpers/constants.ts";
+import { useBirthdayContext } from "../../../contexts/BirthdayContext.tsx";
 
 interface DeleteModalProps {
-    show: boolean;
-    setShow: (show: boolean) => void;
     getBirthdays: () => void;
-    id: number;
 }
 
-function DeleteModal({ show, setShow, getBirthdays, id }: DeleteModalProps) {
+function DeleteModal({ getBirthdays }: DeleteModalProps) {
+    const { showDeleteModal, setShowDeleteModal, deleteID } = useBirthdayContext();
+
     const [loading, setLoading] = useState(false);
 
     const deleteBirthday = async () => {
         const response = await fetch(
-            `${API_HOST}/api/birthday/${id}`,
+            `${API_HOST}/api/birthday/${deleteID}`,
             {
                 method: "DELETE",
             },
@@ -27,7 +27,7 @@ function DeleteModal({ show, setShow, getBirthdays, id }: DeleteModalProps) {
         // TODO: Need to handle error case on delete
         deleteBirthday()
             .then(() => {
-                setShow(false);
+                setShowDeleteModal(false);
                 getBirthdays();
             })
             .finally(() => {
@@ -36,12 +36,12 @@ function DeleteModal({ show, setShow, getBirthdays, id }: DeleteModalProps) {
     };
 
     return (
-        <dialog className="modal" open={show}>
+        <dialog className="modal" open={showDeleteModal}>
             <div className="modal-box">
                 <button
                     className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                     onClick={() => {
-                        setShow(false);
+                        setShowDeleteModal(false);
                     }}
                 >
                     <XMarkIcon className="h-5 w-5" />
@@ -54,7 +54,7 @@ function DeleteModal({ show, setShow, getBirthdays, id }: DeleteModalProps) {
                     <button
                         className="btn"
                         onClick={() => {
-                            setShow(false);
+                            setShowDeleteModal(false);
                         }}
                     >
                         Cancel
@@ -79,7 +79,7 @@ function DeleteModal({ show, setShow, getBirthdays, id }: DeleteModalProps) {
             >
                 <button
                     onClick={() => {
-                        setShow(false);
+                        setShowDeleteModal(false);
                     }}
                 >
                     close

@@ -22,15 +22,9 @@ import DeleteModal from "../../components/Modals/DeleteModal/DeleteModal.tsx";
 // }
 
 function BirthdayPage() {
-    const { setShowAddModal, setShowEditModal, setEditID } = useBirthdayContext();
+    const { setShowAddModal, setShowEditModal, setEditID, setShowDeleteModal, setDeleteID } = useBirthdayContext();
     const [birthdays, setBirthdays] = useState<Birthday[]>();
     const [loading, setLoading] = useState(true);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [deleteID, setDeleteID] = useState(0);
-
-    const handleShowDeleteModal = (show: boolean) => {
-        setShowDeleteModal(show);
-    };
 
     const getBirthdays = async (id: number) => {
         const response = await fetch(
@@ -190,10 +184,7 @@ function BirthdayPage() {
             />
             {/* Delete Modal */}
             <DeleteModal
-                show={showDeleteModal}
-                setShow={handleShowDeleteModal}
                 getBirthdays={handleGetBirthdays}
-                id={deleteID}
             />
         </>
     );

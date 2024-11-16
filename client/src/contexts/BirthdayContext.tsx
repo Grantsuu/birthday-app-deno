@@ -14,7 +14,9 @@ const BirthdayProvider = ({ children }: BirthdayProviderProps) => {
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
     // ID of birthday being edited
-    const [editID, setEditID] = useState<number | undefined>(undefined);
+    const [editID, setEditID] = useState(-1);
+    // ID of birthday being deleted
+    const [deleteID, setDeleteID] = useState(-1);
 
     return (
         <BirthdayContext.Provider
@@ -26,7 +28,9 @@ const BirthdayProvider = ({ children }: BirthdayProviderProps) => {
                 showDeleteModal,
                 setShowDeleteModal,
                 editID,
-                setEditID
+                setEditID,
+                deleteID,
+                setDeleteID
             }}
         >
             {children}
