@@ -3,17 +3,25 @@ import { BIRTHDAY_FORM_SCHEMA } from "../../../helpers/constants.ts";
 import FormInput from "../FormInput/FormInput.tsx";
 import { Birthday } from "../../../../../server/interfaces.ts";
 import { BirthdayFormFields } from "../../../helpers/interfaces.ts";
+import { useBirthdayContext } from "../../../contexts/BirthdayContext.tsx";
 
 interface BirthdayFormProps {
-    setShow: (show: boolean) => void;
     handleSubmit: (birthday: Birthday) => Promise<Response>;
     getBirthdays: () => void;
     initial?: {};
 }
 
 function BirthdayForm(
-    { setShow, handleSubmit, getBirthdays, initial }: BirthdayFormProps,
+    { handleSubmit, getBirthdays, initial }: BirthdayFormProps,
 ) {
+    const { setShowAddModal, setShowEditModal, setShowDeleteModal } = useBirthdayContext();
+
+    const closeAllModals = () => {
+        setShowAddModal(false);
+        setShowEditModal(false);
+        setShowDeleteModal(false);
+    }
+
     return (
         <Formik
             initialValues={initial ? initial : {
@@ -24,13 +32,13 @@ function BirthdayForm(
             onSubmit={(values, { resetForm, setSubmitting }) => {
                 setSubmitting(true);
                 handleSubmit({
-                    firstName: `${encodeURIComponent(values.firstName)}`,
-                    lastName: `${encodeURIComponent(values.lastName)}`,
-                    date: encodeURIComponent(values.date),
+                    firstName: `${encodeURIComponent((values as BirthdayFormFields).firstName)}`,
+                    lastName: `${encodeURIComponent((values as BirthdayFormFields).lastName)}`,
+                    date: encodeURIComponent((values as BirthdayFormFields).date),
                 }).then(() => {
                     setSubmitting(false);
                     resetForm();
-                    setShow(false);
+                    closeAllModals();
                     getBirthdays();
                 });
             }}
@@ -75,7 +83,7 @@ function BirthdayForm(
                             className="btn"
                             onClick={() => {
                                 formik.resetForm();
-                                setShow(false);
+                                closeAllModals();
                             }}
                         >
                             Cancel
