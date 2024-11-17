@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import { Form, Formik } from "formik";
 import { BIRTHDAY_FORM_SCHEMA } from "../../../helpers/constants.ts";
 import FormInput from "../FormInput/FormInput.tsx";
@@ -9,7 +8,7 @@ import { useBirthdayContext } from "../../../contexts/BirthdayContext.tsx";
 interface BirthdayFormProps {
     handleSubmit: (birthday: Birthday) => Promise<Response>;
     getBirthdays: () => void;
-    initial?: {};
+    initial?: Record<string, never>;
 }
 
 function BirthdayForm(
