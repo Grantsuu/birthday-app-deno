@@ -1,22 +1,20 @@
 import { defineConfig } from "vite";
-import deno from "@deno/vite-plugin";
 import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
-        deno(),
-        react({
-            include: "**/*.tsx",
-        }),
+        react(),
     ],
     preview: {
         port: 3000,
     },
     server: {
         port: 3000,
+        // Comment/un-comment these values if hosting app in container
+        host: true,
         watch: {
-            // usePolling: true,
+            usePolling: true,
         },
     },
 });
