@@ -11,8 +11,10 @@ export default defineConfig({
     },
     server: {
         port: 3000,
-        // watch: {
-        //     usePolling: true,
-        // },
+        // Comment/un-comment these values if hosting app in container
+        host: true,
+        watch: {
+            usePolling: true,
+        },
     },
 });
