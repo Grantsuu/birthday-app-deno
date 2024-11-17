@@ -23,16 +23,12 @@ function BirthdayForm(
         setShowDeleteModal(false);
     }
 
-    useEffect(()=>{
-
-    },[])
-
     return (
         <Formik
             initialValues={initial ? initial : {
                 firstName: "",
                 lastName: "",
-                date: "2000-1-1",
+                date: "2000-01-01",
             }}
             onSubmit={(values, { resetForm, setSubmitting }) => {
                 setSubmitting(true);
@@ -48,7 +44,7 @@ function BirthdayForm(
                 });
             }}
             validationSchema={BIRTHDAY_FORM_SCHEMA}
-            innterRef={formikRef}
+            innerRef={formikRef}
         >
             {(formik) => (
                 <Form>

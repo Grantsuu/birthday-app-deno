@@ -63,7 +63,6 @@ function EditModal({ getBirthdays }: EditModalProps) {
                 <button
                     className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                     onClick={() => {
-                        // formik.resetForm();
                         setShowEditModal(false);
                     }}
                 >
@@ -110,7 +109,6 @@ function EditModal({ getBirthdays }: EditModalProps) {
             >
                 <button
                     onClick={() => {
-                        // formik.resetForm();
                         setShowEditModal(false);
                     }}
                 >

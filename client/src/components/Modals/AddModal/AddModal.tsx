@@ -31,7 +31,6 @@ function AddModal({ getBirthdays }: AddModalProps) {
                 <button
                     className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                     onClick={() => {
-                        // formik.resetForm();
                         formikRef?.current?.resetForm();
                         setShowAddModal(false);
                     }}
@@ -54,7 +53,6 @@ function AddModal({ getBirthdays }: AddModalProps) {
             >
                 <button
                     onClick={() => {
-                        // formik.resetForm();
                         formikRef?.current?.resetForm();
                         setShowAddModal(false);
                     }}

@@ -18,7 +18,7 @@ const BirthdayProvider = ({ children }: BirthdayProviderProps) => {
     // ID of birthday being deleted
     const [deleteID, setDeleteID] = useState(-1);
 
-    // Formik
+    // Formik form ref
     const formikRef = useRef();
 
     return (
