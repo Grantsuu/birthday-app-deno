@@ -14,13 +14,6 @@ import AddModal from "../../components/Modals/AddModal/AddModal.tsx";
 import EditModal from "../../components/Modals/EditModal/EditModal.tsx";
 import DeleteModal from "../../components/Modals/DeleteModal/DeleteModal.tsx";
 
-// interface Birthday {
-//     id: number;
-//     firstName: string;
-//     lastName: string;
-//     date: string;
-// }
-
 function BirthdayPage() {
     const {
         setShowAddModal,
