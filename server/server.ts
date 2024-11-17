@@ -17,7 +17,7 @@ const client = createDatabaseClient();
 app.use(
     "api/*",
     cors({
-        origin: ["http://localhost:3000", "https://low-pigeon-78.deno.dev"],
+        origin: ["http://localhost:3000", "https://birthday-app-deno.vercel.app/"],
     }),
 );
 

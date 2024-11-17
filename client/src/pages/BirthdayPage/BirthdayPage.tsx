@@ -168,7 +168,7 @@ function BirthdayPage() {
                                         </tr>
                                     );
                                 })
-                                : <>No Birthdays found!</>}
+                                : <div className="text-center">No Birthdays found!</div>}
                         </tbody>
                     </table>
                 </div>
