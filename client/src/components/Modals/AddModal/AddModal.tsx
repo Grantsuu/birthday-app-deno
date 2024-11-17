@@ -9,7 +9,7 @@ interface AddModalProps {
 }
 
 function AddModal({ getBirthdays }: AddModalProps) {
-    const { showAddModal, setShowAddModal } = useBirthdayContext();
+    const { showAddModal, setShowAddModal, formikRef } = useBirthdayContext();
 
     const addBirthday = async (birthday: Birthday) => {
         const response = await fetch(
@@ -32,6 +32,7 @@ function AddModal({ getBirthdays }: AddModalProps) {
                     className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                     onClick={() => {
                         // formik.resetForm();
+                        formikRef?.current?.resetForm();
                         setShowAddModal(false);
                     }}
                 >
@@ -42,7 +43,6 @@ function AddModal({ getBirthdays }: AddModalProps) {
                     Please enter the birthday details below.
                 </p>
                 <BirthdayForm
-                    setShow={setShowAddModal}
                     handleSubmit={addBirthday}
                     getBirthdays={getBirthdays}
                 />
@@ -55,6 +55,7 @@ function AddModal({ getBirthdays }: AddModalProps) {
                 <button
                     onClick={() => {
                         // formik.resetForm();
+                        formikRef?.current?.resetForm();
                         setShowAddModal(false);
                     }}
                 >

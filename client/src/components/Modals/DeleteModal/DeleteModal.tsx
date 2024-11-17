@@ -8,7 +8,8 @@ interface DeleteModalProps {
 }
 
 function DeleteModal({ getBirthdays }: DeleteModalProps) {
-    const { showDeleteModal, setShowDeleteModal, deleteID } = useBirthdayContext();
+    const { showDeleteModal, setShowDeleteModal, deleteID } =
+        useBirthdayContext();
 
     const [loading, setLoading] = useState(false);
 

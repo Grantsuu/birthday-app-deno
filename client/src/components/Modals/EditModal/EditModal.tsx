@@ -87,7 +87,6 @@ function EditModal({ getBirthdays }: EditModalProps) {
                     )
                     : (
                         <BirthdayForm
-                            setShow={setShowEditModal}
                             handleSubmit={patchBirthday}
                             getBirthdays={getBirthdays}
                             initial={{

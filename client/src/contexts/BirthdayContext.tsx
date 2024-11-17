@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useRef, useState } from "react";
 
 const BirthdayContext = createContext();
 
@@ -18,6 +18,9 @@ const BirthdayProvider = ({ children }: BirthdayProviderProps) => {
     // ID of birthday being deleted
     const [deleteID, setDeleteID] = useState(-1);
 
+    // Formik
+    const formikRef = useRef();
+
     return (
         <BirthdayContext.Provider
             value={{
@@ -30,7 +33,8 @@ const BirthdayProvider = ({ children }: BirthdayProviderProps) => {
                 editID,
                 setEditID,
                 deleteID,
-                setDeleteID
+                setDeleteID,
+                formikRef
             }}
         >
             {children}

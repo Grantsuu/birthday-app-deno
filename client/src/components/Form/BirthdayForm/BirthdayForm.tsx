@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { Form, Formik } from "formik";
 import { BIRTHDAY_FORM_SCHEMA } from "../../../helpers/constants.ts";
 import FormInput from "../FormInput/FormInput.tsx";
@@ -14,13 +15,17 @@ interface BirthdayFormProps {
 function BirthdayForm(
     { handleSubmit, getBirthdays, initial }: BirthdayFormProps,
 ) {
-    const { setShowAddModal, setShowEditModal, setShowDeleteModal } = useBirthdayContext();
+    const { setShowAddModal, setShowEditModal, setShowDeleteModal, formikRef } = useBirthdayContext();
 
     const closeAllModals = () => {
         setShowAddModal(false);
         setShowEditModal(false);
         setShowDeleteModal(false);
     }
+
+    useEffect(()=>{
+
+    },[])
 
     return (
         <Formik
@@ -43,6 +48,7 @@ function BirthdayForm(
                 });
             }}
             validationSchema={BIRTHDAY_FORM_SCHEMA}
+            innterRef={formikRef}
         >
             {(formik) => (
                 <Form>
