@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { API_HOST } from "../../../helpers/constants.ts";
-import { Birthday } from "../../../../../server/interfaces.ts";
-import { useBirthdayContext } from "../../../contexts/BirthdayContext.tsx";
+import {useEffect, useState} from "react";
+import {XMarkIcon} from "@heroicons/react/24/outline";
+import {API_HOST} from "../../../helpers/constants.ts";
+import {Birthday} from "../../../../../server/interfaces.ts";
+import {useBirthdayContext} from "../../../contexts/BirthdayContext.tsx";
 import BirthdayForm from "../../Form/BirthdayForm/BirthdayForm.tsx";
-import { BirthdayFormFields } from "../../../helpers/interfaces.ts";
+import {BirthdayFormFields} from "../../../helpers/interfaces.ts";
 
 interface EditModalProps {
     getBirthdays: () => void;
 }
 
-function EditModal({ getBirthdays }: EditModalProps) {
-    const { showEditModal, setShowEditModal, editID } = useBirthdayContext();
+function EditModal({getBirthdays}: EditModalProps) {
+    const {showEditModal, setShowEditModal, editID} = useBirthdayContext();
 
-    const [birthday, setBirthday] = useState<Birthday[]>();
+    const [birthday, setBirthday] = useState<Birthday>();
     const [loading, setLoading] = useState(true);
 
     const patchBirthday = async (birthday: Birthday) => {
@@ -21,7 +21,7 @@ function EditModal({ getBirthdays }: EditModalProps) {
             `${API_HOST}/api/birthday/${editID}`,
             {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(
                     birthday,
                 ),
@@ -66,7 +66,7 @@ function EditModal({ getBirthdays }: EditModalProps) {
                         setShowEditModal(false);
                     }}
                 >
-                    <XMarkIcon className="h-5 w-5" />
+                    <XMarkIcon className="h-5 w-5"/>
                 </button>
                 <h3 className="text-lg font-bold">
                     Edit Birthday
@@ -78,10 +78,10 @@ function EditModal({ getBirthdays }: EditModalProps) {
                     ? (
                         <div className="grid grid-cols-1 gap-2">
                             <div className="grid grid-cols-2 gap-2">
-                                <div className="skeleton h-8 w-full" />
-                                <div className="skeleton h-8 w-full" />
+                                <div className="skeleton h-8 w-full"/>
+                                <div className="skeleton h-8 w-full"/>
                             </div>
-                            <div className="skeleton h-8 w-full" />
+                            <div className="skeleton h-8 w-full"/>
                         </div>
                     )
                     : (
@@ -89,14 +89,14 @@ function EditModal({ getBirthdays }: EditModalProps) {
                             handleSubmit={patchBirthday}
                             getBirthdays={getBirthdays}
                             initial={{
-                                firstName: birthday && birthday[0].firstName
-                                    ? birthday[0].firstName
+                                firstName: birthday && birthday.firstName
+                                    ? birthday.firstName
                                     : "",
-                                lastName: birthday && birthday[0].lastName
-                                    ? birthday[0].lastName
+                                lastName: birthday && birthday.lastName
+                                    ? birthday.lastName
                                     : "",
-                                date: birthday && birthday[0].date
-                                    ? birthday[0].date.split("T")[0]
+                                date: birthday && birthday.date
+                                    ? birthday.date.split("T")[0]
                                     : "2000-01-01",
                             } as BirthdayFormFields}
                         />
@@ -118,4 +118,5 @@ function EditModal({ getBirthdays }: EditModalProps) {
         </dialog>
     );
 }
+
 export default EditModal;
