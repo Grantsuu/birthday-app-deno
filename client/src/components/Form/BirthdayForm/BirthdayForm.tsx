@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import { BIRTHDAY_FORM_SCHEMA } from "../../../helpers/constants.ts";
-import FormInput from "../FormInput/FormInput.tsx";
+import FormTextInput from "../FormTextInput/FormTextInput.tsx";
 import { Birthday } from "../../../../../server/interfaces.ts";
 import { BirthdayFormFields } from "../../../helpers/interfaces.ts";
 import { useBirthdayContext } from "../../../contexts/BirthdayContext.tsx";
@@ -50,32 +50,28 @@ function BirthdayForm(
                     {/* Name */}
                     <div className="grid grid-cols-2 gap-2 mb-4">
                         {/* First Name */}
-                        <FormInput
+                        <FormTextInput
                             name="firstName"
                             placeholder="First Name"
                             type="text"
-                            className="input input-bordered"
                             disabled={formik.isSubmitting}
                         />
                         {/* Last Name */}
-                        <FormInput
+                        <FormTextInput
                             name="lastName"
                             placeholder="Last Name"
                             type="text"
-                            className="input input-bordered"
                             disabled={formik.isSubmitting}
                         />
                     </div>
                     {/* Date */}
-                    <div className="mb-4">
-                        <FormInput
+                        <FormTextInput
                             name="date"
+                            className="mb-4"
                             placeholder="mm/dd/yyyy"
                             type="date"
-                            className="input input-bordered"
                             disabled={formik.isSubmitting}
                         />
-                    </div>
                     {/* Buttons */}
                     <div className="flex justify-end space-x-2">
                         {/* Cancel */}

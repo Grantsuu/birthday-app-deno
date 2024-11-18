@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Form } from "formik";
-import FormInput from "../FormInput/FormInput.tsx";
+import FormTextInput from "../FormTextInput/FormTextInput.tsx";
 import { UserFormFields } from "../../../helpers/interfaces.ts";
 
 interface UserFormProps {
@@ -89,14 +89,14 @@ function UserForm(
                             {/* First Name */}
                             {name && (
                                 <>
-                                    <FormInput
+                                    <FormTextInput
                                         name="firstName"
                                         placeholder="First Name"
                                         type="text"
                                         disabled={formik.isSubmitting}
                                     />
                                     {/* Last Name */}
-                                    <FormInput
+                                    <FormTextInput
                                         name="lastName"
                                         placeholder="Last Name"
                                         type="text"
@@ -107,31 +107,29 @@ function UserForm(
                         </div>
                         {/* Email */}
                         {email && (
-                            <div className="mb-4">
-                                <FormInput
+                                <FormTextInput
                                     name="email"
+                                    className="mb-4"
                                     placeholder="Email"
                                     type="text"
                                     disabled={formik.isSubmitting}
                                 />
-                            </div>
                         )}
                         {/* Phone Number */}
                         {phone && (
-                            <div className="mb-4">
-                                <FormInput
+                                <FormTextInput
                                     name="phone"
+                                    className="mb-4"
                                     placeholder="Phone Number"
                                     type="text"
                                     disabled={formik.isSubmitting}
                                 />
-                            </div>
                         )}
                         {/* Password */}
                         {password &&
                             (
                                 <div className="mb-4">
-                                    <FormInput
+                                    <FormTextInput
                                         name="password"
                                         placeholder="Password"
                                         type="password"
@@ -150,14 +148,13 @@ function UserForm(
                         {/* Confirm Password */}
                         {confirmPassword &&
                             (
-                                <div className="mb-4">
-                                    <FormInput
+                                    <FormTextInput
                                         name="confirmPassword"
+                                        className="mb-4"
                                         placeholder="Confirm Password"
                                         type="password"
                                         disabled={formik.isSubmitting}
                                     />
-                                </div>
                             )}
                         {/* Submit */}
                         <button

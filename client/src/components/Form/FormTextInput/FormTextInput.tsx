@@ -4,13 +4,14 @@ import TextError from "../FormTextError/FormTextError.tsx";
 interface FormInputProps {
     name: string;
     label?: string;
+    className?: string;
 }
 
-const FormInput: React.FC<FormInputProps & FieldHookConfig<string>> = (
-    { name, label, ...rest },
+const FormTextInput: React.FC<FormInputProps & FieldHookConfig<string>> = (
+    { name, label, className, ...rest },
 ) => {
     return (
-        <div>
+        <div className={className}>
             <label
                 htmlFor={name}
                 className="block text-xs font-medium text-gray-700"
@@ -33,4 +34,4 @@ const FormInput: React.FC<FormInputProps & FieldHookConfig<string>> = (
     );
 };
 
-export default FormInput;
+export default FormTextInput;
