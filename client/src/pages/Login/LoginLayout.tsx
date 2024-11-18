@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-function AccountLayout() {
+function LoginLayout() {
     return (
         <div className="flex flex-col gap-4 items-center justify-center min-h-screen">
             <div className="flex flex-row gap-2">
@@ -24,4 +24,4 @@ function AccountLayout() {
     );
 }
 
-export default AccountLayout;
+export default LoginLayout;
