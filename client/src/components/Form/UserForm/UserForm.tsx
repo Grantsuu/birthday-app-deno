@@ -73,7 +73,7 @@ function UserForm(
                 phone: "",
                 password: "",
             } as UserFormFields}
-            onSubmit={(values, { resetForm, setSubmitting }) => {
+            onSubmit={(values) => { // , { resetForm, setSubmitting }
                 console.log(values);
             }}
             validationSchema={USER_FORM_SCHEMA}

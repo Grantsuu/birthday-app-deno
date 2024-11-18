@@ -9,7 +9,7 @@ interface AddModalProps {
 }
 
 function AddModal({ getBirthdays }: AddModalProps) {
-    const { showAddModal, setShowAddModal, formikRef } = useBirthdayContext();
+    const { showAddModal, setShowAddModal, birthdayFormikRef } = useBirthdayContext();
 
     const addBirthday = async (birthday: Birthday) => {
         const response = await fetch(
@@ -31,7 +31,7 @@ function AddModal({ getBirthdays }: AddModalProps) {
                 <button
                     className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                     onClick={() => {
-                        formikRef?.current?.resetForm();
+                        birthdayFormikRef?.current?.resetForm();
                         setShowAddModal(false);
                     }}
                 >
@@ -53,7 +53,7 @@ function AddModal({ getBirthdays }: AddModalProps) {
             >
                 <button
                     onClick={() => {
-                        formikRef?.current?.resetForm();
+                        birthdayFormikRef?.current?.resetForm();
                         setShowAddModal(false);
                     }}
                 >

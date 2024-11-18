@@ -89,14 +89,14 @@ function EditModal({ getBirthdays }: EditModalProps) {
                             handleSubmit={patchBirthday}
                             getBirthdays={getBirthdays}
                             initial={{
-                                firstName: birthday && birthday.firstName
-                                    ? birthday.firstName
+                                firstName: birthday && birthday[0].firstName
+                                    ? birthday[0].firstName
                                     : "",
-                                lastName: birthday && birthday.lastName
-                                    ? birthday.lastName
+                                lastName: birthday && birthday[0].lastName
+                                    ? birthday[0].lastName
                                     : "",
-                                date: birthday && birthday.date
-                                    ? birthday.date.split("T")[0]
+                                date: birthday && birthday[0].date
+                                    ? birthday[0].date.split("T")[0]
                                     : "2000-01-01",
                             } as BirthdayFormFields}
                         />

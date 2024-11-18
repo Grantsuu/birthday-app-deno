@@ -1,4 +1,3 @@
-// @deno-types="@types/react"
 import { useEffect, useState } from "react";
 import {
     CakeIcon,

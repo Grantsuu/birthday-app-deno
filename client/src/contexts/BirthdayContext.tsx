@@ -1,11 +1,28 @@
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, {createContext, useContext, useRef, useState} from "react";
+import { FormikProps} from "formik";
+import { BirthdayFormFields} from "../helpers/interfaces.ts";
 
-const BirthdayContext = createContext();
+interface BirthdayContext {
+    showAddModal: boolean,
+    setShowAddModal: React.Dispatch<React.SetStateAction<boolean>>,
+    showEditModal: boolean,
+    setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>,
+    showDeleteModal: boolean,
+    setShowDeleteModal: React.Dispatch<React.SetStateAction<boolean>>,
+    editID: number,
+    setEditID: React.Dispatch<React.SetStateAction<number>>,
+    deleteID: number,
+    setDeleteID: React.Dispatch<React.SetStateAction<number>>,
+    birthdayFormikRef: React.RefObject<FormikProps<Record<string, never> | BirthdayFormFields>>
+}
+
+const BirthdayContext = createContext<BirthdayContext>({} as BirthdayContext);
 
 interface BirthdayProviderProps {
     children: React.ReactNode;
 }
-const BirthdayProvider = ({ children }: BirthdayProviderProps) => {
+
+const BirthdayProvider = ({children}: BirthdayProviderProps) => {
     // Add birthday modal state
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
     // Edit birthday modal state
@@ -19,7 +36,7 @@ const BirthdayProvider = ({ children }: BirthdayProviderProps) => {
     const [deleteID, setDeleteID] = useState(-1);
 
     // Formik form ref
-    const formikRef = useRef();
+    const birthdayFormikRef = useRef<FormikProps<BirthdayFormFields>>() as React.RefObject<FormikProps<Record<string, never> | BirthdayFormFields>>;
 
     return (
         <BirthdayContext.Provider
@@ -34,7 +51,7 @@ const BirthdayProvider = ({ children }: BirthdayProviderProps) => {
                 setEditID,
                 deleteID,
                 setDeleteID,
-                formikRef
+                birthdayFormikRef
             }}
         >
             {children}
@@ -46,4 +63,4 @@ const useBirthdayContext = () => {
     return useContext(BirthdayContext);
 };
 
-export { BirthdayProvider, useBirthdayContext };
+export {BirthdayProvider, useBirthdayContext};

@@ -8,13 +8,13 @@ import { useBirthdayContext } from "../../../contexts/BirthdayContext.tsx";
 interface BirthdayFormProps {
     handleSubmit: (birthday: Birthday) => Promise<Response>;
     getBirthdays: () => void;
-    initial?: Record<string, never>;
+    initial?: BirthdayFormFields
 }
 
 function BirthdayForm(
     { handleSubmit, getBirthdays, initial }: BirthdayFormProps,
 ) {
-    const { setShowAddModal, setShowEditModal, setShowDeleteModal, formikRef } = useBirthdayContext();
+    const { setShowAddModal, setShowEditModal, setShowDeleteModal, birthdayFormikRef } = useBirthdayContext();
 
     const closeAllModals = () => {
         setShowAddModal(false);
@@ -28,13 +28,13 @@ function BirthdayForm(
                 firstName: "",
                 lastName: "",
                 date: "2000-01-01",
-            }}
+            } as BirthdayFormFields}
             onSubmit={(values, { resetForm, setSubmitting }) => {
                 setSubmitting(true);
                 handleSubmit({
-                    firstName: `${encodeURIComponent((values as BirthdayFormFields).firstName)}`,
-                    lastName: `${encodeURIComponent((values as BirthdayFormFields).lastName)}`,
-                    date: encodeURIComponent((values as BirthdayFormFields).date),
+                    firstName: `${encodeURIComponent(values.firstName)}`,
+                    lastName: `${encodeURIComponent(values.lastName)}`,
+                    date: encodeURIComponent(values.date),
                 }).then(() => {
                     setSubmitting(false);
                     resetForm();
@@ -43,7 +43,7 @@ function BirthdayForm(
                 });
             }}
             validationSchema={BIRTHDAY_FORM_SCHEMA}
-            innerRef={formikRef}
+            innerRef={birthdayFormikRef}
         >
             {(formik) => (
                 <Form>
